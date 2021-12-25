@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import ArrayList from "./ArrayList";
 import Footer from "./Footer";
 import ProgressBar from "./ProgressBar";
+import CreateArrayButton from "./CreateArrayButton";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -44,6 +45,7 @@ export default function SortingVisualizer() {
   const [progressBarPercent, setProgressBarPercent] = useState(0);
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(true);
+  const [inputArray, setInputArray] = useState("10,52,13,40,23");
 
   //Generate Random Array From 1 To Array Length
   const generateRandomArr = (arrayLength) => {
@@ -146,10 +148,15 @@ export default function SortingVisualizer() {
     setArrayLength(e.target.value);
   };
 
-  //hande change sort speed, set the delay time
+  //handle change sort speed, set the delay time
   //reverse the slider direction, min=500 max=20 in this case
   const handleSortSpeed = (e) => {
     setSortSpeed(Math.ceil(500 / Number(e.target.value)));
+  };
+
+  //handle change input array value
+  const handleInputArray = (e) => {
+    setInputArray(e.target.value);
   };
 
   return (
@@ -176,6 +183,13 @@ export default function SortingVisualizer() {
       <ProgressBar
         progressBarPercent={progressBarPercent}
         arrayLength={arrayLength}
+      />
+      <CreateArrayButton
+        value={inputArray}
+        setInputArray={setInputArray}
+        handleOnchange={handleInputArray}
+        setArray={setArray}
+        isDisabled={isSorting}
       />
       <Footer />
     </div>
