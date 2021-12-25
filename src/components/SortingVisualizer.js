@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import ArrayList from "./ArrayList";
 import Footer from "./Footer";
+import ProgressBar from "./ProgressBar";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
 
 //Util
-import swap from "../util/swap";
+import swap from "../utils/swap";
+import checkArray from "../utils/checkArray";
 
 //Generate Random Number & Shuffle Array
 const generateRandomNumber = (min, max) => {
@@ -34,11 +36,12 @@ export default function SortingVisualizer() {
   //React State
   const [array, setArray] = useState([]);
   const [arrayLength, setArrayLength] = useState(30);
-  const [sortSpeed, setSortSpeed] = useState(100);
+  const [sortSpeed, setSortSpeed] = useState(50);
   const [swap, setSwap] = useState([]);
   const [compare, setCompare] = useState([]);
   const [sortedIndex, setSortedIndex] = useState([]);
   const [sortedArray, setSortedArray] = useState([]);
+  const [progressBarPercent, setProgressBarPercent] = useState(0);
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(true);
 
@@ -46,6 +49,7 @@ export default function SortingVisualizer() {
   const generateRandomArr = (arrayLength) => {
     setSortedIndex([]);
     setSortedArray([]);
+    setProgressBarPercent(0);
     setIsSorted(false);
     setIsSorting(false);
 
@@ -58,8 +62,10 @@ export default function SortingVisualizer() {
   };
 
   const handleSort = () => {
+    if (isSorted || checkArray(array)) return;
     const orders = BubbleSort(array);
     handleSortOrder(orders);
+    handleProgressBar(orders);
     handleSortedArray(orders);
     handleResetSortState(orders);
   };
@@ -107,7 +113,27 @@ export default function SortingVisualizer() {
     const delayTime = order.length * sortSpeed + arrayLength * 15;
     setTimeout(() => {
       setIsSorting(false);
+      setIsSorted(true);
     }, delayTime);
+  };
+
+  // handle sorting progress bar
+  const handleProgressBar = (order) => {
+    const step = order.length / 100;
+    //update progress bar
+    for (let i = 0; i <= order.length; i = i + step) {
+      setTimeout(() => {
+        setProgressBarPercent(Math.ceil((i / order.length) * 100));
+      }, i * sortSpeed);
+    }
+  };
+
+  const handleSortedProgressBar = (order) => {
+    for (let i = 0; i < 200; i++) {
+      setTimeout(() => {
+        setProgressBarPercent(i);
+      }, i * 100);
+    }
   };
 
   //initial array & handle change array when change value in Array Length slider
@@ -146,6 +172,10 @@ export default function SortingVisualizer() {
         swap={swap}
         sortedIndex={sortedIndex}
         sortedArray={sortedArray}
+      />
+      <ProgressBar
+        progressBarPercent={progressBarPercent}
+        arrayLength={arrayLength}
       />
       <Footer />
     </div>

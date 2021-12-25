@@ -1,4 +1,4 @@
-import swap from "../util/swap";
+import swap from "../utils/swap";
 
 const BubbleSort = (array) => {
   const tmpArr = array.slice();

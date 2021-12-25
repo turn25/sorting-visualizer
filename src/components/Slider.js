@@ -25,7 +25,7 @@ export default function Slider({
         step={step}
         onChange={handleOnChange}
         disabled={disabled}
-        className="cursor-pointer"
+        className="cursor-pointer slider"
       />
       <div className="flex justify-between items-center">
         <p>{leftValueText}</p>

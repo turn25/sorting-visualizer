@@ -39,7 +39,13 @@ export default function ArrayList({
               width: `${100 / array.length}vw`,
               backgroundColor: bg,
             }}
-          />
+          >
+            {array.length < 25 && (
+              <p className="w-full h-full hidden md:flex items-end justify-center pb-1 text-white transition ease-in duration-200 hover:opacity-60 hover:-translate-y-1.5 cursor-default">
+                {barHeight}
+              </p>
+            )}
+          </div>
         );
       })}
     </div>
