@@ -10,6 +10,8 @@ import Legend from "./Legend";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
+import InsertionSort from "../sorting-algorithms/InsertionSort";
+import SelectionSort from "../sorting-algorithms/SelectionSort";
 
 //Util
 import swap from "../utils/swap";
@@ -48,6 +50,7 @@ export default function SortingVisualizer() {
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(true);
   const [inputArray, setInputArray] = useState("10,52,13,40,23");
+  const [isAsc, setIsAsc] = useState(true);
 
   const resetSortState = () => {
     setSortedIndex([]);
@@ -70,12 +73,20 @@ export default function SortingVisualizer() {
   };
 
   const handleSort = (algo) => {
-    if (isSorted || checkArray(array)) return;
+    if (isSorted || checkArray(array, isAsc)) return;
+
+    resetSortState();
 
     let orders;
     switch (algo) {
       case "BubbleSort":
-        orders = BubbleSort(array);
+        orders = BubbleSort(array, isAsc);
+        break;
+      case "InsertionSort":
+        orders = InsertionSort(array, isAsc);
+        break;
+      case "SelectionSort":
+        orders = SelectionSort(array, isAsc);
         break;
 
       default:
@@ -186,6 +197,16 @@ export default function SortingVisualizer() {
       />
       {sortAlgo}
       <button className="p-4 bg-gray-400">{sortSpeed}</button>
+      <button
+        className="p-4 bg-gray-300"
+        onClick={() => {
+          setIsAsc(!isAsc);
+          setIsSorted(false);
+          setIsSorting(false);
+        }}
+      >
+        {isAsc ? "Ascending" : "Descending"}
+      </button>
       <ArrayList
         array={array}
         compare={compare}

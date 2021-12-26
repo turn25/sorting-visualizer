@@ -104,9 +104,11 @@ export default function CreateArrayButton({
             placeholder="Input array..."
             onChange={handleOnchange}
             disabled={isDisabled}
-            className="flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
-            focus:outline-none focus:ring-0 focus:border-blue-400 cursor-pointer disabled:bg-gray-400
-             disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in"
+            className={`flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
+            focus:outline-none focus:ring-0 focus:border-blue-400 ${
+              isShowError && "focus:border-red-400"
+            } cursor-pointer disabled:bg-gray-400
+             disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in`}
           />
           <span className="material-icons absolute top-2.5 right-6 text-[1.25rem] opacity-20 cursor-pointer">
             edit

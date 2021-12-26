@@ -1,4 +1,4 @@
-const colors = ["green", "teal", "green", "blue"];
+const colors = ["green", "teal", "green", "blue", "red"];
 
 module.exports = {
   mode: "jit",
@@ -6,6 +6,7 @@ module.exports = {
   safelist: [
     ...colors.map((color) => `bg-${color}-400`),
     ...colors.map((color) => `text-${color}-500`),
+    ...colors.map((color) => `border-b-${color}-400`),
   ],
   theme: {
     extend: {
@@ -23,9 +24,33 @@ module.exports = {
             animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
           },
         },
+
+        customWiggleLeft: {
+          "0%, 100%": {
+            transform: "translateX(25%)",
+            opacity: "70%",
+          },
+          "50%": {
+            transform: "translateX(0)",
+            opacity: "100%",
+          },
+        },
+
+        customWiggleRight: {
+          "0%, 100%": {
+            transform: "translateX(-25%)",
+            opacity: "70%",
+          },
+          "50%": {
+            transform: "translateX(0)",
+            opacity: "100%",
+          },
+        },
       },
       animation: {
         customBounce: "customBounce 1s infinite",
+        customWiggleLeft: "customWiggleLeft 1s ease-in-out infinite",
+        customWiggleRight: "customWiggleRight 1s ease-in-out infinite",
       },
     },
   },

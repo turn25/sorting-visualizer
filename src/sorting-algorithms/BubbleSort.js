@@ -1,6 +1,6 @@
 import swap from "../utils/swap";
 
-const BubbleSort = (array) => {
+const BubbleSort = (array, isAsc) => {
   const tmpArr = array.slice();
   const order = [];
 
@@ -12,7 +12,8 @@ const BubbleSort = (array) => {
     for (j = 0; j < tmpArr.length - i - 1; j++) {
       // index1, index2, array, sorted index
       order.push([j, j + 1, null, null]); // compare
-      if (tmpArr[j] > tmpArr[j + 1]) {
+      //if isAsc then compare j > j + 1 (ascending) else j < j + 1 (descending)
+      if (tmpArr[isAsc ? j : j + 1] > tmpArr[isAsc ? j + 1 : j]) {
         swap(tmpArr, j, j + 1);
 
         order.push([j, j + 1, tmpArr.slice(), null]); //swap
