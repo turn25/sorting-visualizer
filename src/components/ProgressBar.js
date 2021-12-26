@@ -16,7 +16,7 @@ export default function ProgressBar({ progressBarPercent, arrayLength }) {
         className={`h-full bg-${colorTransition}-400 ${progressBarWidthTransition}  ease-in duration-500 ${exitTransition}  `}
         style={{ width: `${progressBarPercent}%` }}
       />
-      <p className="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center font-semibold text-sm text-white">
+      <p className="absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center font-semibold text-sm text-white cursor-default">
         {progressBarPercent}%
       </p>
     </div>

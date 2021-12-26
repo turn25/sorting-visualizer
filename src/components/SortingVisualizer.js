@@ -6,6 +6,7 @@ import ArrayList from "./ArrayList";
 import Footer from "./Footer";
 import ProgressBar from "./ProgressBar";
 import CreateArrayButton from "./CreateArrayButton";
+import Legend from "./Legend";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -38,6 +39,7 @@ export default function SortingVisualizer() {
   const [array, setArray] = useState([]);
   const [arrayLength, setArrayLength] = useState(30);
   const [sortSpeed, setSortSpeed] = useState(50);
+  const [sortAlgo, setSortAlgo] = useState("BubbleSort");
   const [swap, setSwap] = useState([]);
   const [compare, setCompare] = useState([]);
   const [sortedIndex, setSortedIndex] = useState([]);
@@ -47,13 +49,17 @@ export default function SortingVisualizer() {
   const [isSorting, setIsSorting] = useState(true);
   const [inputArray, setInputArray] = useState("10,52,13,40,23");
 
-  //Generate Random Array From 1 To Array Length
-  const generateRandomArr = (arrayLength) => {
+  const resetSortState = () => {
     setSortedIndex([]);
     setSortedArray([]);
     setProgressBarPercent(0);
     setIsSorted(false);
     setIsSorting(false);
+  };
+
+  //Generate Random Array From 1 To Array Length
+  const generateRandomArr = (arrayLength) => {
+    resetSortState();
 
     const tempArr = [];
     for (let i = 0; i < arrayLength; i++) {
@@ -63,9 +69,20 @@ export default function SortingVisualizer() {
     setArray(tempArr);
   };
 
-  const handleSort = () => {
+  const handleSort = (algo) => {
     if (isSorted || checkArray(array)) return;
-    const orders = BubbleSort(array);
+
+    let orders;
+    switch (algo) {
+      case "BubbleSort":
+        orders = BubbleSort(array);
+        break;
+
+      default:
+        console.log("Error");
+        return;
+    }
+
     handleSortOrder(orders);
     handleProgressBar(orders);
     handleSortedArray(orders);
@@ -130,14 +147,6 @@ export default function SortingVisualizer() {
     }
   };
 
-  const handleSortedProgressBar = (order) => {
-    for (let i = 0; i < 200; i++) {
-      setTimeout(() => {
-        setProgressBarPercent(i);
-      }, i * 100);
-    }
-  };
-
   //initial array & handle change array when change value in Array Length slider
   useEffect(() => {
     generateRandomArr(arrayLength);
@@ -169,9 +178,13 @@ export default function SortingVisualizer() {
         randomArr={() => {
           generateRandomArr(arrayLength);
         }}
-        handleSort={handleSort}
+        setSortAlgo={setSortAlgo}
+        handleSort={() => {
+          handleSort(sortAlgo);
+        }}
         isDisabled={isSorting}
       />
+      {sortAlgo}
       <button className="p-4 bg-gray-400">{sortSpeed}</button>
       <ArrayList
         array={array}
@@ -190,7 +203,9 @@ export default function SortingVisualizer() {
         handleOnchange={handleInputArray}
         setArray={setArray}
         isDisabled={isSorting}
+        reset={resetSortState}
       />
+      <Legend isSorted={isSorted} />
       <Footer />
     </div>
   );

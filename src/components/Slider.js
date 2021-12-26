@@ -25,15 +25,15 @@ export default function Slider({
         step={step}
         onChange={handleOnChange}
         disabled={disabled}
-        className="cursor-pointer slider"
+        className="cursor-pointer"
       />
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center cursor-default">
         <p>{leftValueText}</p>
         {valuePlaceHolder && (
           <p
-            className={`bg-blue-600 rounded-full flex items-center justify-center py-0 px-${
-              valuePlaceHolder < 100 ? "1" : "2"
-            }`}
+            className={`rounded-full flex items-center justify-center ${
+              disabled ? "bg-gray-500" : "bg-blue-600"
+            } py-0 px-${valuePlaceHolder < 100 ? "1" : "2"}`}
           >
             {valuePlaceHolder}
           </p>

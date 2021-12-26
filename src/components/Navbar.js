@@ -2,12 +2,18 @@ import React from "react";
 import Slider from "./Slider";
 import Button from "./Button";
 
+const SortAlgos = [
+  { name: "Bubble Sort", value: "BubbleSort" },
+  { name: "Insertion Sort", value: "InsertionSort" },
+];
+
 export default function Navbar({
   arrayLength,
   handleArrayLength,
   sortSpeed,
   handleSortSpeed,
   randomArr,
+  setSortAlgo,
   handleSort,
   isDisabled,
 }) {
@@ -50,12 +56,21 @@ export default function Navbar({
           handleOnClick={randomArr}
           disabled={isDisabled}
         />
+
+        {SortAlgos.map((algo, index) => (
+          <Button
+            key={index}
+            placeHolder={algo.name}
+            handleOnClick={() => setSortAlgo(algo.value)}
+            disabled={isDisabled}
+          />
+        ))}
+
         <Button
-          placeHolder="Bubble Sort"
+          placeHolder="Sort"
           handleOnClick={handleSort}
           disabled={isDisabled}
         />
-        <Button placeHolder="Insertion Sort" disabled={isDisabled} />
       </div>
     </nav>
   );
