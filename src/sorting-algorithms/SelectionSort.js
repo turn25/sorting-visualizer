@@ -6,19 +6,17 @@ const SelectionSort = (array, isAsc) => {
   const order = [];
 
   //index1, index2, arr, sortedIndex
-  let i, j, minIdx;
+  let i, j;
 
   for (i = 0; i < tmpArr.length; i++) {
-    minIdx = i;
-
     for (j = i + 1; j < tmpArr.length; j++) {
       //add compare elements
       order.push([j, i, null, null]);
 
-      // if ascending order, swap the found minimum element with the first element, else swap the maximum element
-      if (tmpArr[isAsc ? j : minIdx] < tmpArr[isAsc ? minIdx : j]) {
-        swap(tmpArr, j, minIdx);
-        order.push([j, minIdx, tmpArr.slice(), null]);
+      // if ascending order(isAsc), swap the found minimum element with the first element, else swap the maximum element
+      if (tmpArr[isAsc ? j : i] < tmpArr[isAsc ? i : j]) {
+        swap(tmpArr, j, i);
+        order.push([j, i, tmpArr.slice(), null]);
       }
     }
     order.push([null, null, null, i]); //if ascending order, minimum element index (sorted index)

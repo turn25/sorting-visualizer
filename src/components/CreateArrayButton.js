@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import "./CreateArrayButton.css";
 
 export default function CreateArrayButton({
   value,
@@ -16,12 +18,6 @@ export default function CreateArrayButton({
     if (!isShowInput) setIsShowError(false);
   };
 
-  const handleShowInputTransition = () => {
-    return isShowInput
-      ? "opacity-100 translate-x-0"
-      : "opacity-0 -translate-x-[140%] z-10";
-  };
-
   const handleOnSave = (e) => {
     e.preventDefault();
 
@@ -31,7 +27,7 @@ export default function CreateArrayButton({
     const newArr = value.match(/\d+/g);
 
     if (charArr) {
-      setTimeout(() => setIsShowError(true), 150);
+      setIsShowError(true);
       setTimeout(() => setIsShowError(false), 5000);
       return;
     }
@@ -39,7 +35,7 @@ export default function CreateArrayButton({
     if (value && newArr) {
       for (let i = 0; i < newArr.length; i++) {
         if (newArr[i] > 100 || newArr[i] < 10) {
-          setTimeout(() => setIsShowError(true), 150);
+          setIsShowError(true);
           setTimeout(() => setIsShowError(false), 5000);
           return;
         }
@@ -56,7 +52,7 @@ export default function CreateArrayButton({
       reset();
       setArray(newArr);
     } else {
-      setTimeout(() => setIsShowError(true), 150);
+      setIsShowError(true);
       setTimeout(() => setIsShowError(false), 5000);
       return;
     }
@@ -88,48 +84,62 @@ export default function CreateArrayButton({
           </span>
         </button>
       </div>
-
-      <form
-        className={`bg-gray-300 ml-4 h-fit w-[24rem] rounded-md flex flex-col p-1 shadow-lg ${handleShowInputTransition()} transition-all ease-in duration-200`}
-      >
-        <label className="font-semibold flex justify-center align-center text-gray-700 my-0.5">
-          <span className="material-icons mx-1 text-gray-600">keyboard</span>
-          Input Array Of Numbers:
-        </label>
-        <div className="flex flex-row p-0 m-0 relative">
-          <input
-            type="text"
-            name="inputArray"
-            value={value}
-            placeholder="Input array..."
-            onChange={handleOnchange}
-            disabled={isDisabled}
-            className={`flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
-            focus:outline-none focus:ring-0 focus:border-blue-400 ${
-              isShowError && "focus:border-red-400"
-            } cursor-pointer disabled:bg-gray-400
-             disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in`}
-          />
-          <span className="material-icons absolute top-2.5 right-6 text-[1.25rem] opacity-20 cursor-pointer">
-            edit
-          </span>
-        </div>
-        <button
-          onClick={handleOnSave}
-          disabled={isDisabled || isShowError}
-          className={`p-2 rounded-md text-white mx-4 my-1.5 ${handleErrorBtnClass()} transition-all ease-in`}
+      <div>
+        <CSSTransition
+          in={isShowInput}
+          timeout={300}
+          classNames="alert"
+          unmountOnExit
         >
-          {isShowError ? "Invalid Input" : "Go"}
-        </button>
+          <form className="bg-gray-300 ml-4 h-fit w-[24rem] rounded-md flex flex-col p-1 shadow-lg ">
+            <label className="font-semibold flex justify-center align-center text-gray-700 my-0.5">
+              <span className="material-icons mx-1 text-gray-600">
+                keyboard
+              </span>
+              Input Array Of Numbers:
+            </label>
+            <div className="flex flex-row p-0 m-0 relative">
+              <input
+                type="text"
+                name="inputArray"
+                value={value}
+                placeholder="Input array..."
+                onChange={handleOnchange}
+                disabled={isDisabled}
+                className={`flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
+              focus:outline-none focus:ring-0 focus:border-blue-400 ${
+                isShowError && "focus:border-red-400"
+              } cursor-pointer disabled:bg-gray-400
+              disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in`}
+              />
+              <span className="material-icons absolute top-2.5 right-6 text-[1.25rem] opacity-20 cursor-pointer">
+                edit
+              </span>
+            </div>
+            <button
+              onClick={handleOnSave}
+              disabled={isDisabled || isShowError}
+              className={`p-2 rounded-md text-white mx-4 my-1.5 ${handleErrorBtnClass()} transition-all ease-in`}
+            >
+              {isShowError ? "Invalid Input" : "Go"}
+            </button>
+          </form>
+        </CSSTransition>
 
         {/* Error Message */}
-        {isShowError && (
-          <div className="bg-red-400 left-2 right-2 py-2 flex justify-center items-center absolute -top-12 rounded-lg text-white">
-            <span className="material-icons">error</span>
-            <p className="font-bold">Enter a number between 0 and 100</p>
-          </div>
-        )}
-      </form>
+
+        {/* <CSSTransition
+          in={isShowError}
+          timeout={300}
+          classNames="alert"
+          unmountOnExit
+        > */}
+        <div className="bg-red-400 left-2 right-2 py-2 flex justify-center items-center absolute -top-12 rounded-lg text-white">
+          <span className="material-icons">error</span>
+          <p className="font-bold">Enter a number between 0 and 100</p>
+        </div>
+        {/* </CSSTransition> */}
+      </div>
     </div>
   );
 }

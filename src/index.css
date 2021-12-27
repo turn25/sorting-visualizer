@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* Slider */
+  input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #3b82f6;
+  }
+
+  input:checked ~ .dot:hover {
+    background-color: #2563eb;
+  }
+
+  input:disabled ~ .dot,
+  input:disabled ~ .dot:hover {
+    background-color: #6b7280;
+  }
+
+  input:checked ~ .bar {
+    background-color: #93c5fd;
+  }
+
+  input:checked ~ .bar:hover {
+    background-color: #60a5fa;
+  }
+
+  input:disabled ~ .bar,
+  input:disabled ~ .bar:hover {
+    background-color: #9ca3af;
+  }
+}

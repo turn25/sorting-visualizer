@@ -1,4 +1,4 @@
-const colors = ["green", "teal", "green", "blue", "red"];
+const colors = ["green", "teal", "green", "blue", "red", "gray"];
 
 module.exports = {
   mode: "jit",
@@ -6,6 +6,7 @@ module.exports = {
   safelist: [
     ...colors.map((color) => `bg-${color}-400`),
     ...colors.map((color) => `text-${color}-500`),
+    ...colors.map((color) => `text-${color}-600`),
     ...colors.map((color) => `border-b-${color}-400`),
   ],
   theme: {
@@ -27,7 +28,7 @@ module.exports = {
 
         customWiggleLeft: {
           "0%, 100%": {
-            transform: "translateX(25%)",
+            transform: "translateX(8px)",
             opacity: "70%",
           },
           "50%": {
@@ -38,10 +39,44 @@ module.exports = {
 
         customWiggleRight: {
           "0%, 100%": {
-            transform: "translateX(-25%)",
+            transform: "translateX(-8px)",
             opacity: "70%",
           },
           "50%": {
+            transform: "translateX(0)",
+            opacity: "100%",
+          },
+        },
+
+        customEnterLeft: {
+          "0%": {
+            transform: "translateX(0)",
+            opacity: "50%",
+          },
+          "25%": {
+            transform: "translateX(-2.5%)",
+          },
+          "75%": {
+            transform: "translateX(2.5%)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "100%",
+          },
+        },
+
+        customEnterRight: {
+          "0%": {
+            transform: "translateX(0)",
+            opacity: "50%",
+          },
+          "25%": {
+            transform: "translateX(2.5%)",
+          },
+          "75%": {
+            transform: "translateX(-2.5%)",
+          },
+          "100%": {
             transform: "translateX(0)",
             opacity: "100%",
           },
@@ -51,6 +86,8 @@ module.exports = {
         customBounce: "customBounce 1s infinite",
         customWiggleLeft: "customWiggleLeft 1s ease-in-out infinite",
         customWiggleRight: "customWiggleRight 1s ease-in-out infinite",
+        customEnterLeft: "customEnterLeft 1s cubic-bezier(0.4, 0, 0.6, 1)",
+        customEnterRight: "customEnterRight 1s cubic-bezier(0.4, 0, 0.6, 1)",
       },
     },
   },

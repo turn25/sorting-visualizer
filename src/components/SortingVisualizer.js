@@ -12,6 +12,7 @@ import Legend from "./Legend";
 import BubbleSort from "../sorting-algorithms/BubbleSort";
 import InsertionSort from "../sorting-algorithms/InsertionSort";
 import SelectionSort from "../sorting-algorithms/SelectionSort";
+import ShellSort from "../sorting-algorithms/ShellSort";
 
 //Util
 import swap from "../utils/swap";
@@ -88,6 +89,13 @@ export default function SortingVisualizer() {
       case "SelectionSort":
         orders = SelectionSort(array, isAsc);
         break;
+      case "ShellSort":
+        orders = ShellSort(array, isAsc);
+        handleShellSortOrder(orders);
+        handleProgressBar(orders);
+        handleSortedArray(orders);
+        handleResetSortState(orders);
+        return;
 
       default:
         console.log("Error");
@@ -112,9 +120,36 @@ export default function SortingVisualizer() {
         setSwap([]); // no swap
 
         // add all sorted index to sortedIndex array to change bar color (sorted color)
-        if (index !== null) {
+        if (index !== null)
           setSortedIndex((prevIndex) => [...prevIndex, index]);
+
+        // if order[i] return an arr
+        if (arr) {
+          setArray(arr);
+          // if have index1 or index2 => setSwap to change bar color (swap color)
+          if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
         }
+      }, orderIdx * sortSpeed);
+    });
+  };
+
+  const handleShellSortOrder = (order) => {
+    setIsSorting(true);
+    setIsSorted(false);
+
+    //destructuring the data from the i-th order item
+    order.forEach(([idx1, idx2, arr, index], orderIdx) => {
+      //set Timeout increse for each item
+      setTimeout(() => {
+        if (idx1 !== null && idx2 !== 1) setCompare([idx1, idx2]); //set compared bars color (compare color)
+        setSwap([]); // no swap
+
+        //for shellsort, clear bar color change
+        if (idx1) setSortedIndex([]);
+
+        // add all sorted index to sortedIndex array to change bar color (sorted color)
+        if (index !== null)
+          setSortedIndex((prevIndex) => [...prevIndex, index]);
 
         // if order[i] return an arr
         if (arr) {
@@ -179,6 +214,13 @@ export default function SortingVisualizer() {
     setInputArray(e.target.value);
   };
 
+  //handle toggle order switch
+  const handleToggleAsc = () => {
+    setIsAsc(!isAsc);
+    setIsSorted(false);
+    setIsSorting(false);
+  };
+
   return (
     <div className="h-full w-full">
       <Navbar
@@ -194,19 +236,9 @@ export default function SortingVisualizer() {
           handleSort(sortAlgo);
         }}
         isDisabled={isSorting}
+        isAsc={isAsc}
+        handleToggleAsc={handleToggleAsc}
       />
-      {sortAlgo}
-      <button className="p-4 bg-gray-400">{sortSpeed}</button>
-      <button
-        className="p-4 bg-gray-300"
-        onClick={() => {
-          setIsAsc(!isAsc);
-          setIsSorted(false);
-          setIsSorting(false);
-        }}
-      >
-        {isAsc ? "Ascending" : "Descending"}
-      </button>
       <ArrayList
         array={array}
         compare={compare}
@@ -216,7 +248,7 @@ export default function SortingVisualizer() {
       />
       <ProgressBar
         progressBarPercent={progressBarPercent}
-        arrayLength={arrayLength}
+        arrayLength={array.length}
       />
       <CreateArrayButton
         value={inputArray}
@@ -226,7 +258,7 @@ export default function SortingVisualizer() {
         isDisabled={isSorting}
         reset={resetSortState}
       />
-      <Legend isSorted={isSorted} />
+      <Legend isSorted={isSorted} sortAlgo={sortAlgo} />
       <Footer />
     </div>
   );

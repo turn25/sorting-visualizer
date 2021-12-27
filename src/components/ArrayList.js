@@ -5,6 +5,8 @@ const green_400 = "#4ade80";
 const violet_400 = "#a78bfa";
 const teal_400 = "#2dd4bf";
 const rose_400 = "#fb7185";
+const amber_400 = "#fbbf24";
+const emerald_400 = "#34d399";
 
 export default function ArrayList({
   array,
@@ -18,15 +20,21 @@ export default function ArrayList({
       {array.map((barHeight, index) => {
         let bg = blue_400;
 
-        // if compare have index(idx) inside => change bar color that have the same idx
-        if (compare && (index === compare[0] || index === compare[1]))
+        // if compare only have 1 index
+        if (compare && index === compare[0] && compare[1] === null)
+          bg = amber_400;
+        // if compare have 2 indexs(idx) inside => change bar color that have the same idx
+        else if (compare && (index === compare[0] || index === compare[1]))
           bg = violet_400;
 
         // if swap have index(idx) inside => change bar color that have the same idx
         if (swap && (index === swap[0] || index === swap[1])) bg = rose_400;
 
+        // for shell sort
+        if (sortedIndex && sortedIndex.includes(index) && compare[0] === null)
+          bg = emerald_400;
         // if sortedIndex have index(idx) inside => change the bar that have the idx listed in sortedIdx
-        if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
+        else if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
 
         if (sortedArray && sortedArray.includes(index)) bg = teal_400;
 

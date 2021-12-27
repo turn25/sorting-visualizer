@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Legend({ isSorted }) {
+export default function Legend({ isSorted, sortAlgo }) {
   const sortedColor = (sortedColor, unSortedColor) => {
     return isSorted ? sortedColor : unSortedColor;
   };
@@ -28,6 +28,13 @@ export default function Legend({ isSorted }) {
         </label>
       </form>
       <div className="flex justify-between items-center">
+        {sortAlgo === "ShellSort" && (
+          <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
+            <span className="bg-amber-400 h-10 w-10 rounded-md" />
+            <p className="font-semibold text-amber-600">Gap</p>
+          </div>
+        )}
+
         <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
           <span className="bg-violet-400 h-10 w-10 rounded-md" />
           <p className="font-semibold text-violet-600">Compare</p>
