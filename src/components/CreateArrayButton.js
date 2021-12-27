@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import "./CreateArrayButton.css";
+import "../Transition.css";
 
 export default function CreateArrayButton({
   value,
@@ -13,11 +13,6 @@ export default function CreateArrayButton({
   const [isShowInput, setIsShowInput] = useState(false);
   const [isShowError, setIsShowError] = useState(false);
 
-  const handleShowInputForm = () => {
-    setIsShowInput(!isShowInput);
-    if (!isShowInput) setIsShowError(false);
-  };
-
   const handleOnSave = (e) => {
     e.preventDefault();
 
@@ -28,7 +23,7 @@ export default function CreateArrayButton({
 
     if (charArr) {
       setIsShowError(true);
-      setTimeout(() => setIsShowError(false), 5000);
+      setTimeout(() => setIsShowError(false), 4000);
       return;
     }
     // must have arr length
@@ -36,7 +31,7 @@ export default function CreateArrayButton({
       for (let i = 0; i < newArr.length; i++) {
         if (newArr[i] > 100 || newArr[i] < 10) {
           setIsShowError(true);
-          setTimeout(() => setIsShowError(false), 5000);
+          setTimeout(() => setIsShowError(false), 4000);
           return;
         }
       }
@@ -53,7 +48,7 @@ export default function CreateArrayButton({
       setArray(newArr);
     } else {
       setIsShowError(true);
-      setTimeout(() => setIsShowError(false), 5000);
+      setTimeout(() => setIsShowError(false), 4000);
       return;
     }
   };
@@ -70,7 +65,7 @@ export default function CreateArrayButton({
     <div className="fixed bottom-10 left-4 gap-x-2 flex items-center h-32">
       <div className="h-full flex items-center">
         <button
-          onClick={handleShowInputForm}
+          onClick={() => setIsShowInput(!isShowInput)}
           className={`z-20 opacity-80 md:opacity-50 hover:opacity-100 ${
             isShowInput && "opacity-90"
           } transition-all ease-in`}
@@ -84,14 +79,16 @@ export default function CreateArrayButton({
           </span>
         </button>
       </div>
+
       <div>
         <CSSTransition
           in={isShowInput}
           timeout={300}
-          classNames="alert"
+          classNames="pop-up"
           unmountOnExit
+          onExit={() => setIsShowError(false)}
         >
-          <form className="bg-gray-300 ml-4 h-fit w-[24rem] rounded-md flex flex-col p-1 shadow-lg ">
+          <form className="bg-gray-300 h-fit  w-[24rem] py-1 ml-4 rounded-md flex flex-col p-1 shadow-lg relative">
             <label className="font-semibold flex justify-center align-center text-gray-700 my-0.5">
               <span className="material-icons mx-1 text-gray-600">
                 keyboard
@@ -106,6 +103,7 @@ export default function CreateArrayButton({
                 placeholder="Input array..."
                 onChange={handleOnchange}
                 disabled={isDisabled}
+                autoComplete="off"
                 className={`flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
               focus:outline-none focus:ring-0 focus:border-blue-400 ${
                 isShowError && "focus:border-red-400"
@@ -128,17 +126,17 @@ export default function CreateArrayButton({
 
         {/* Error Message */}
 
-        {/* <CSSTransition
+        <CSSTransition
           in={isShowError}
           timeout={300}
-          classNames="alert"
+          classNames="pop-up"
           unmountOnExit
-        > */}
-        <div className="bg-red-400 left-2 right-2 py-2 flex justify-center items-center absolute -top-12 rounded-lg text-white">
-          <span className="material-icons">error</span>
-          <p className="font-bold">Enter a number between 0 and 100</p>
-        </div>
-        {/* </CSSTransition> */}
+        >
+          <div className="bg-red-400 w-[24rem] right-0 py-2 flex justify-center items-center absolute -top-12 rounded-lg text-white cursor-pointer">
+            <span className="material-icons">error</span>
+            <p className="font-bold">Enter a number between 0 and 100</p>
+          </div>
+        </CSSTransition>
       </div>
     </div>
   );

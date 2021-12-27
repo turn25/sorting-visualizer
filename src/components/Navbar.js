@@ -20,18 +20,20 @@ export default function Navbar({
   isDisabled,
   isAsc,
   handleToggleAsc,
+  isChangeSortAlgo,
+  setIsChangeSortAlgo,
 }) {
   const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
   const [animationDirection, setAnimationDirection] = useState("");
 
   return (
-    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 drop-shadow-lg    ">
-      <div className="flex items-center cursor-default">
+    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 drop-shadow-lg">
+      <div className="flex-1 flex items-center cursor-default">
         <span className="material-icons text-2xl font-bold px-1">sort</span>
         <h1 className="font-bold text-3xl">Sorting Visualizer</h1>
       </div>
 
-      <div className="flex items-center justify-end gap-x-4">
+      <div className="flex-1 flex items-center justify-center justify gap-x-4">
         <Button
           placeHolder="Random Array"
           handleOnClick={randomArr}
@@ -50,6 +52,8 @@ export default function Navbar({
             const [index] = SortAlgos[currentSortAlgoIdx];
             setSortAlgo(index.value);
 
+            setIsChangeSortAlgo(!isChangeSortAlgo);
+
             //set animation direction
             setAnimationDirection("left");
           }}
@@ -58,10 +62,10 @@ export default function Navbar({
         >
           <span className="material-icons">chevron_left</span>
         </button>
-        {SortAlgos[sortAlgoIdx].map((algo) => (
+        {SortAlgos[sortAlgoIdx].map(({ id, name }) => (
           <Button
-            key={algo.id}
-            placeHolder={algo.name}
+            key={id}
+            placeHolder={name}
             handleOnClick={() => handleSort()}
             disabled={isDisabled}
             animationDirection={animationDirection}
@@ -78,6 +82,8 @@ export default function Navbar({
             const [index] = SortAlgos[currentSortAlgoIdx];
             setSortAlgo(index.value);
 
+            setIsChangeSortAlgo(!isChangeSortAlgo);
+
             //set animation direction
             setAnimationDirection("right");
           }}
@@ -92,7 +98,8 @@ export default function Navbar({
           disabled={isDisabled}
         />
       </div>
-      <div className="flex items-center justify-center gap-x-5 h-full">
+
+      <div className="flex-1 flex items-center justify-end gap-x-5 h-full">
         <Slider
           name="arrayLength"
           nameHeader="Array Length"
@@ -109,11 +116,11 @@ export default function Navbar({
         <Slider
           name="sortSpeed"
           nameHeader="Sort Speed"
-          minValue="1"
-          maxValue="25"
+          minValue="10"
+          maxValue="500"
           leftValueText="Slow"
           rightValueText="Fast"
-          value={Math.ceil(500 / sortSpeed)}
+          value={Math.abs(sortSpeed - 500) + 10}
           step="1"
           handleOnChange={handleSortSpeed}
           disabled={isDisabled}

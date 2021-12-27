@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import ProgressBar from "./ProgressBar";
 import CreateArrayButton from "./CreateArrayButton";
 import Legend from "./Legend";
+import AlertModal from "./AlertModal";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -14,34 +15,16 @@ import InsertionSort from "../sorting-algorithms/InsertionSort";
 import SelectionSort from "../sorting-algorithms/SelectionSort";
 import ShellSort from "../sorting-algorithms/ShellSort";
 
-//Util
-import swap from "../utils/swap";
+//Utils
 import checkArray from "../utils/checkArray";
-
-//Generate Random Number & Shuffle Array
-const generateRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-const shuffleArray = (array) => {
-  let currentIdx, randomIdx;
-  currentIdx = array.length;
-  //while there remain elements to shuffle
-  while (currentIdx) {
-    //pick a remaining element
-    randomIdx = Math.floor(Math.random() * currentIdx);
-    currentIdx--;
-    //swap position
-    swap(array, randomIdx, currentIdx);
-  }
-  return array;
-};
+import generateRandomNumber from "../utils/generateRandomNumber";
+import shuffleArray from "../utils/shuffleArray";
 
 export default function SortingVisualizer() {
   //React State
   const [array, setArray] = useState([]);
   const [arrayLength, setArrayLength] = useState(30);
-  const [sortSpeed, setSortSpeed] = useState(50);
+  const [sortSpeed, setSortSpeed] = useState(250);
   const [sortAlgo, setSortAlgo] = useState("BubbleSort");
   const [swap, setSwap] = useState([]);
   const [compare, setCompare] = useState([]);
@@ -50,10 +33,14 @@ export default function SortingVisualizer() {
   const [progressBarPercent, setProgressBarPercent] = useState(0);
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(true);
+  const [isShowAlert, setIsShowAlert] = useState(false);
   const [inputArray, setInputArray] = useState("10,52,13,40,23");
   const [isAsc, setIsAsc] = useState(true);
+  const [sortTimeDelay, setSortTimeDelay] = useState(0);
+  const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
 
   const resetSortState = () => {
+    setCompare([]);
     setSortedIndex([]);
     setSortedArray([]);
     setProgressBarPercent(0);
@@ -73,8 +60,18 @@ export default function SortingVisualizer() {
     setArray(tempArr);
   };
 
+  //Check if array is already sorted
   const handleSort = (algo) => {
-    if (isSorted || checkArray(array, isAsc)) return;
+    if (isSorted || checkArray(array, isAsc)) {
+      setIsShowAlert(true);
+      setIsSorted(true);
+      setIsSorting(true);
+      setTimeout(() => {
+        setIsShowAlert(false);
+        setIsSorting(false);
+      }, 1500);
+      return;
+    }
 
     resetSortState();
 
@@ -116,6 +113,8 @@ export default function SortingVisualizer() {
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
       setTimeout(() => {
+        setSortTimeDelay(orderIdx * sortSpeed);
+
         setCompare([idx1, idx2]); //set compared bars color (compare color)
         setSwap([]); // no swap
 
@@ -141,6 +140,8 @@ export default function SortingVisualizer() {
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
       setTimeout(() => {
+        setSortTimeDelay(orderIdx * sortSpeed);
+
         if (idx1 !== null && idx2 !== 1) setCompare([idx1, idx2]); //set compared bars color (compare color)
         setSwap([]); // no swap
 
@@ -204,9 +205,9 @@ export default function SortingVisualizer() {
   };
 
   //handle change sort speed, set the delay time
-  //reverse the slider direction, min=500 max=20 in this case
+  //reverse the slider direction, min=500 max=10 in this case
   const handleSortSpeed = (e) => {
-    setSortSpeed(Math.ceil(500 / Number(e.target.value)));
+    setSortSpeed(Math.abs(e.target.value - 500) + 10);
   };
 
   //handle change input array value
@@ -223,6 +224,7 @@ export default function SortingVisualizer() {
 
   return (
     <div className="h-full w-full">
+      <AlertModal isShowAlert={isShowAlert} />
       <Navbar
         arrayLength={arrayLength}
         handleArrayLength={handleArrayLength}
@@ -238,7 +240,10 @@ export default function SortingVisualizer() {
         isDisabled={isSorting}
         isAsc={isAsc}
         handleToggleAsc={handleToggleAsc}
+        isChangeSortAlgo={isChangeSortAlgo}
+        setIsChangeSortAlgo={setIsChangeSortAlgo}
       />
+      {sortSpeed}, {sortTimeDelay} ms
       <ArrayList
         array={array}
         compare={compare}
@@ -258,7 +263,11 @@ export default function SortingVisualizer() {
         isDisabled={isSorting}
         reset={resetSortState}
       />
-      <Legend isSorted={isSorted} sortAlgo={sortAlgo} />
+      <Legend
+        isSorted={isSorted}
+        sortAlgo={sortAlgo}
+        isChangeSortAlgo={isChangeSortAlgo}
+      />
       <Footer />
     </div>
   );

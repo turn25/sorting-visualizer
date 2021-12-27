@@ -31,7 +31,12 @@ export default function ArrayList({
         if (swap && (index === swap[0] || index === swap[1])) bg = rose_400;
 
         // for shell sort
-        if (sortedIndex && sortedIndex.includes(index) && compare[0] === null)
+        if (
+          sortedIndex &&
+          sortedIndex.includes(index) &&
+          compare[0] === null &&
+          compare[1] !== null
+        )
           bg = emerald_400;
         // if sortedIndex have index(idx) inside => change the bar that have the idx listed in sortedIdx
         else if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
@@ -44,7 +49,7 @@ export default function ArrayList({
             className="m-[0.2%] rounded-t-md transition-[height] ease-in duration-200"
             //height = 6/10 current bar height, width = 100vw/len
             style={{
-              height: `${(barHeight * 6) / 10}vh`,
+              height: `${barHeight}%`,
               width: `${100 / array.length}vw`,
               backgroundColor: bg,
             }}

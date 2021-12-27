@@ -8,6 +8,7 @@ export default function Footer() {
         href="https://github.com/vuquangtuan123"
         rel="noreferrer"
         target="_blank"
+        className="text-blue-400"
       >
         Tuan Vu
       </a>
