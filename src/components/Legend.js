@@ -42,17 +42,21 @@ export default function Legend({ isSorted, sortAlgo, isChangeSortAlgo }) {
             {sortAlgo === "ShellSort" && (
               <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
                 <span className="bg-amber-400 h-10 w-10 rounded-md" />
-                <p className="font-semibold text-amber-600">Gap</p>
+                <p className="font-semibold text-amber-600 cursor-default">
+                  Gap
+                </p>
               </div>
             )}
 
             <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
               <span className="bg-violet-400 h-10 w-10 rounded-md" />
-              <p className="font-semibold text-violet-600">Compare</p>
+              <p className="font-semibold text-violet-600 cursor-default">
+                Compare
+              </p>
             </div>
             <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
               <span className="bg-rose-400 h-10 w-10 rounded-md" />
-              <p className="font-semibold text-rose-600">Swap</p>
+              <p className="font-semibold text-rose-600 cursor-default">Swap</p>
             </div>
             <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
               <span
@@ -65,7 +69,7 @@ export default function Legend({ isSorted, sortAlgo, isChangeSortAlgo }) {
                 className={`font-semibold text-${sortedColor(
                   "teal",
                   "green"
-                )}-500`}
+                )}-500 cursor-default`}
               >
                 Sorted
               </p>

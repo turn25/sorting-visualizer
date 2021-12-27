@@ -2,7 +2,7 @@ import React from "react";
 import { CSSTransition } from "react-transition-group";
 import "../Transition.css";
 
-export default function AlertModal({ isShowAlert }) {
+export default function AlertToast({ isShowAlert }) {
   return (
     <div className="flex justify-center items-center h-fit w-fit fixed top-28 left-[50%] -translate-x-[50%] z-10 cursor-pointer">
       <CSSTransition

@@ -7,7 +7,7 @@ import Footer from "./Footer";
 import ProgressBar from "./ProgressBar";
 import CreateArrayButton from "./CreateArrayButton";
 import Legend from "./Legend";
-import AlertModal from "./AlertModal";
+import AlertToast from "./AlertToast";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -224,7 +224,7 @@ export default function SortingVisualizer() {
 
   return (
     <div className="h-full w-full">
-      <AlertModal isShowAlert={isShowAlert} />
+      <AlertToast isShowAlert={isShowAlert} />
       <Navbar
         arrayLength={arrayLength}
         handleArrayLength={handleArrayLength}
