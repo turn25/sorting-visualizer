@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import Slider from "./Slider";
 import Button from "./Button";
 
-const SortAlgos = [
-  [{ id: 1, name: "Bubble Sort", value: "BubbleSort" }],
-  [{ id: 2, name: "Insertion Sort", value: "InsertionSort" }],
-  [{ id: 3, name: "Selection Sort", value: "SelectionSort" }],
-  [{ id: 4, name: "Shell Sort", value: "ShellSort" }],
-];
+// Sort Algos Info Data
+import SortAlgos from "../SortAlgo";
 
 export default function Navbar({
   arrayLength,
@@ -20,20 +16,23 @@ export default function Navbar({
   isDisabled,
   isAsc,
   handleToggleAsc,
-  isChangeSortAlgo,
   setIsChangeSortAlgo,
+  sortAlgoIdx,
+  setSortAlgoIdx,
+  setSortTimeDelay,
 }) {
-  const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
   const [animationDirection, setAnimationDirection] = useState("");
 
   return (
-    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 shadow-navbar">
+    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 shadow-navbar fixed top-0 w-full">
       <div className="flex-1 flex items-center cursor-default">
-        <span className="material-icons text-2xl font-bold px-1">sort</span>
+        <span className="material-icons text-lg lg:text-2xl font-bold px-1">
+          sort
+        </span>
         <h1 className="font-bold text-3xl">Sorting Visualizer</h1>
       </div>
 
-      <div className="flex-1 flex items-center justify-center justify gap-x-4">
+      <div className="flex-1 hidden md:flex items-center justify-center justify gap-x-4">
         <Button
           placeHolder="Random Array"
           handleOnClick={randomArr}
@@ -52,7 +51,8 @@ export default function Navbar({
             const [index] = SortAlgos[currentSortAlgoIdx];
             setSortAlgo(index.value);
 
-            setIsChangeSortAlgo(!isChangeSortAlgo);
+            setSortTimeDelay(0);
+            setIsChangeSortAlgo((isChangeSortAlgo) => !isChangeSortAlgo);
 
             //set animation direction
             setAnimationDirection("left");
@@ -82,7 +82,8 @@ export default function Navbar({
             const [index] = SortAlgos[currentSortAlgoIdx];
             setSortAlgo(index.value);
 
-            setIsChangeSortAlgo(!isChangeSortAlgo);
+            setSortTimeDelay(0);
+            setIsChangeSortAlgo((isChangeSortAlgo) => !isChangeSortAlgo);
 
             //set animation direction
             setAnimationDirection("right");
@@ -99,7 +100,7 @@ export default function Navbar({
         />
       </div>
 
-      <div className="flex-1 flex items-center justify-end gap-x-5 h-full">
+      <div className="flex-1 hidden md:flex flex-col xl:flex-row items-end justify-center xl:items-center xl:justify-end gap-x-5 h-full">
         <Slider
           name="arrayLength"
           nameHeader="Array Length"
@@ -126,13 +127,20 @@ export default function Navbar({
           disabled={isDisabled}
         />
         {/* Toggle Switch */}
-        <label className="flex flex-col justify-center items-center cursor-pointer w-[7.5rem]">
+        <label className="flex xl:flex-col justify-between xl:justify-center items-center cursor-pointer w-[7.5rem]">
           <div
-            className={`text-gray-${
+            className={`hidden xl:block text-gray-${
               isAsc ? "100 font-medium" : "500 font-bold"
             } transition ease-in`}
           >
             Ascending
+          </div>
+          <div
+            className={`xl:hidden text-gray-${
+              isAsc ? "100 font-medium" : "500 font-bold"
+            } transition ease-in`}
+          >
+            Asc
           </div>
           <div className="relative my-1">
             <input
@@ -147,11 +155,18 @@ export default function Navbar({
             <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition checked:translate-x-10"></div>
           </div>
           <div
-            className={`text-gray-${
+            className={`hidden xl:block text-gray-${
               isAsc ? "500 font-bold" : "100 font-medium"
             } transition ease-in`}
           >
             Descending
+          </div>
+          <div
+            className={`xl:hidden text-gray-${
+              isAsc ? "100 font-medium" : "500 font-bold"
+            } transition ease-in`}
+          >
+            Desc
           </div>
         </label>
       </div>

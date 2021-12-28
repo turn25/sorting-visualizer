@@ -15,7 +15,9 @@ export default function Slider({
 }) {
   return (
     <div className="flex-col justify-center items-center">
-      <label className="text-center block font-semibold">{nameHeader}</label>
+      <label className="text-center hidden xl:block font-semibold">
+        {nameHeader}
+      </label>
       <input
         type="range"
         name={name}
@@ -28,17 +30,17 @@ export default function Slider({
         className="cursor-pointer"
       />
       <div className="flex justify-between items-center cursor-default">
-        <p>{leftValueText}</p>
+        <p className="hidden xl:block">{leftValueText}</p>
         {valuePlaceHolder && (
           <p
-            className={`rounded-full flex items-center justify-center ${
+            className={`rounded-full hidden xl:flex items-center justify-center ${
               disabled ? "bg-gray-500" : "bg-blue-600"
             } py-0 px-${valuePlaceHolder < 100 ? "1" : "2"}`}
           >
             {valuePlaceHolder}
           </p>
         )}
-        <p>{rightValueText}</p>
+        <p className="hidden xl:block">{rightValueText}</p>
       </div>
     </div>
   );

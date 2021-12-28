@@ -8,6 +8,7 @@ import ProgressBar from "./ProgressBar";
 import CreateArrayButton from "./CreateArrayButton";
 import Legend from "./Legend";
 import AlertToast from "./AlertToast";
+import SortingAlgoInfo from "./SortingAlgoInfo";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -38,12 +39,14 @@ export default function SortingVisualizer() {
   const [isAsc, setIsAsc] = useState(true);
   const [sortTimeDelay, setSortTimeDelay] = useState(0);
   const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
+  const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
 
   const resetSortState = () => {
     setCompare([]);
     setSortedIndex([]);
     setSortedArray([]);
     setProgressBarPercent(0);
+    setSortTimeDelay(0);
     setIsSorted(false);
     setIsSorting(false);
   };
@@ -90,6 +93,7 @@ export default function SortingVisualizer() {
         orders = ShellSort(array, isAsc);
         handleShellSortOrder(orders);
         handleProgressBar(orders);
+        handleSortTimeDelay(orders);
         handleSortedArray(orders);
         handleResetSortState(orders);
         return;
@@ -101,6 +105,7 @@ export default function SortingVisualizer() {
 
     handleSortOrder(orders);
     handleProgressBar(orders);
+    handleSortTimeDelay(orders);
     handleSortedArray(orders);
     handleResetSortState(orders);
   };
@@ -113,8 +118,6 @@ export default function SortingVisualizer() {
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
       setTimeout(() => {
-        setSortTimeDelay(orderIdx * sortSpeed);
-
         setCompare([idx1, idx2]); //set compared bars color (compare color)
         setSwap([]); // no swap
 
@@ -140,8 +143,6 @@ export default function SortingVisualizer() {
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
       setTimeout(() => {
-        setSortTimeDelay(orderIdx * sortSpeed);
-
         if (idx1 !== null && idx2 !== 1) setCompare([idx1, idx2]); //set compared bars color (compare color)
         setSwap([]); // no swap
 
@@ -194,6 +195,15 @@ export default function SortingVisualizer() {
     }
   };
 
+  // handle get sort time delay
+  const handleSortTimeDelay = (orders) => {
+    orders.forEach((order, index) => {
+      setTimeout(() => {
+        setSortTimeDelay(index * sortSpeed);
+      }, index * sortSpeed);
+    });
+  };
+
   //initial array & handle change array when change value in Array Length slider
   useEffect(() => {
     generateRandomArr(arrayLength);
@@ -240,10 +250,12 @@ export default function SortingVisualizer() {
         isDisabled={isSorting}
         isAsc={isAsc}
         handleToggleAsc={handleToggleAsc}
-        isChangeSortAlgo={isChangeSortAlgo}
         setIsChangeSortAlgo={setIsChangeSortAlgo}
+        sortAlgoIdx={sortAlgoIdx}
+        setSortAlgoIdx={setSortAlgoIdx}
+        setSortTimeDelay={setSortTimeDelay}
       />
-      {sortSpeed}, {sortTimeDelay} ms
+      {sortTimeDelay}
       <ArrayList
         array={array}
         compare={compare}
@@ -266,6 +278,11 @@ export default function SortingVisualizer() {
       <Legend
         isSorted={isSorted}
         sortAlgo={sortAlgo}
+        isChangeSortAlgo={isChangeSortAlgo}
+      />
+      <SortingAlgoInfo
+        sortAlgoIdx={sortAlgoIdx}
+        sortTimeDelay={sortTimeDelay}
         isChangeSortAlgo={isChangeSortAlgo}
       />
       <Footer />
