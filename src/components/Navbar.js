@@ -27,7 +27,7 @@ export default function Navbar({
   const [animationDirection, setAnimationDirection] = useState("");
 
   return (
-    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 drop-shadow-lg">
+    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 shadow-navbar">
       <div className="flex-1 flex items-center cursor-default">
         <span className="material-icons text-2xl font-bold px-1">sort</span>
         <h1 className="font-bold text-3xl">Sorting Visualizer</h1>

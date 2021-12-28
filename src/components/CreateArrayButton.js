@@ -13,6 +13,15 @@ export default function CreateArrayButton({
   const [isShowInput, setIsShowInput] = useState(false);
   const [isShowError, setIsShowError] = useState(false);
 
+  const handleMatchNumber = (e) => {
+    e.preventDefault();
+    const newArr = value.match(/\d+/g);
+    setInputArray(newArr[0]);
+    for (let i = 1; i < newArr.length; i++) {
+      setInputArray((prevInput) => prevInput + "," + newArr[i]);
+    }
+  };
+
   const handleOnSave = (e) => {
     e.preventDefault();
 
@@ -61,6 +70,12 @@ export default function CreateArrayButton({
     else return "bg-blue-400 hover:bg-blue-500";
   };
 
+  // handle press close input form button
+  const handleCloseForm = (e) => {
+    e.preventDefault();
+    setIsShowInput(false);
+  };
+
   return (
     <div className="fixed bottom-10 left-4 gap-x-2 flex items-center h-32">
       <div className="h-full flex items-center">
@@ -88,7 +103,14 @@ export default function CreateArrayButton({
           unmountOnExit
           onExit={() => setIsShowError(false)}
         >
-          <form className="bg-gray-300 h-fit  w-[24rem] py-1 ml-4 rounded-md flex flex-col p-1 shadow-lg relative">
+          <form className="bg-gray-300 h-fit  w-[24rem] px-1 pb-1 pt-3 ml-4 rounded-md flex flex-col shadow-lg relative">
+            <button onClick={handleCloseForm}>
+              <span
+                className={`material-icons text-3xl  absolute right-3 top-0 text-gray-500 hover:text-gray-800 transition ease-in`}
+              >
+                cancel
+              </span>
+            </button>
             <label className="font-semibold flex justify-center align-center text-gray-700 my-0.5">
               <span className="material-icons mx-1 text-gray-600">
                 keyboard
@@ -110,9 +132,20 @@ export default function CreateArrayButton({
               } cursor-pointer disabled:bg-gray-400
               disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in`}
               />
-              <span className="material-icons absolute top-2.5 right-6 text-[1.25rem] opacity-20 cursor-pointer">
-                edit
-              </span>
+              <button className="relative group">
+                <span
+                  onClick={handleMatchNumber}
+                  className="material-icons absolute top-2.5 right-6 text-[1.25rem] opacity-20 cursor-pointer"
+                >
+                  edit
+                </span>
+                <span
+                  className="absolute hidden md:block top-50 -left-2 translate-y-[-50%] text-white text-sm font-semibold
+                  rounded-lg h-fit w-32 p-2 bg-blue-400 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transitio duration-100"
+                >
+                  Format An Array
+                </span>
+              </button>
             </div>
             <button
               onClick={handleOnSave}

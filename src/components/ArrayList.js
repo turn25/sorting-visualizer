@@ -35,7 +35,7 @@ export default function ArrayList({
           sortedIndex &&
           sortedIndex.includes(index) &&
           compare[0] === null &&
-          compare[1] !== null
+          compare[1] === 1
         )
           bg = emerald_400;
         // if sortedIndex have index(idx) inside => change the bar that have the idx listed in sortedIdx

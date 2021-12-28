@@ -25,7 +25,6 @@ module.exports = {
             animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
           },
         },
-
         customWiggleLeft: {
           "0%, 100%": {
             transform: "translateX(8px)",
@@ -36,7 +35,6 @@ module.exports = {
             opacity: "100%",
           },
         },
-
         customWiggleRight: {
           "0%, 100%": {
             transform: "translateX(-8px)",
@@ -47,7 +45,6 @@ module.exports = {
             opacity: "100%",
           },
         },
-
         customEnterLeft: {
           "0%": {
             transform: "translateX(0)",
@@ -64,7 +61,6 @@ module.exports = {
             opacity: "100%",
           },
         },
-
         customEnterRight: {
           "0%": {
             transform: "translateX(0)",
@@ -88,6 +84,9 @@ module.exports = {
         customWiggleRight: "customWiggleRight 1s ease-in-out infinite",
         customEnterLeft: "customEnterLeft 1s cubic-bezier(0.4, 0, 0.6, 1)",
         customEnterRight: "customEnterRight 1s cubic-bezier(0.4, 0, 0.6, 1)",
+      },
+      boxShadow: {
+        navbar: "0 10px 15px rgba(100, 100, 100, 0.2)",
       },
     },
   },
