@@ -276,6 +276,8 @@ export default function SortingVisualizer() {
         handleToggleAsc={handleToggleAsc}
         isShowDrawer={isShowDrawer}
         setIsShowDrawer={setIsShowDrawer}
+        sortAlgoIdx={sortAlgoIdx}
+        setSortAlgoIdx={setSortAlgoIdx}
       />
       <ArrayList
         array={array}
