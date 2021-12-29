@@ -86,10 +86,15 @@ module.exports = {
         customEnterRight: "customEnterRight 1s cubic-bezier(0.4, 0, 0.6, 1)",
       },
       boxShadow: {
-        navbar: "0 10px 15px rgba(100, 100, 100, 0.2)",
+        navbar: "0 10px 15px rgba(100, 100, 100, 0.25)",
+        drawer: "10px 0px 15px rgba(100, 100, 100, 0.25)",
       },
       gridTemplateColumns: {
         "4/2": "4fr 2fr",
+      },
+      screens: {
+        smMobile: { max: "320px" },
+        mobile: { min: "321px", max: "480px" },
       },
     },
   },

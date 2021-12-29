@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import "../Transition.css";
+import useClickOutside from "../hook/useClickOutside";
 
 export default function CreateArrayButton({
   value,
@@ -12,7 +13,12 @@ export default function CreateArrayButton({
 }) {
   const [isShowInput, setIsShowInput] = useState(false);
   const [isShowError, setIsShowError] = useState(false);
+  const createInputRef = useRef();
 
+  //detect click/tap outside input form
+  useClickOutside(createInputRef, setIsShowInput);
+
+  // for format buttun
   const handleMatchNumber = (e) => {
     e.preventDefault();
     const newArr = value.match(/\d+/g);
@@ -22,6 +28,7 @@ export default function CreateArrayButton({
     }
   };
 
+  // save button
   const handleOnSave = (e) => {
     e.preventDefault();
 
@@ -77,7 +84,10 @@ export default function CreateArrayButton({
   };
 
   return (
-    <div className="fixed bottom-10 left-4 gap-x-2 flex items-center h-32">
+    <div
+      className="fixed bottom-10 left-4 gap-x-2 flex items-center h-32 z-10"
+      ref={createInputRef}
+    >
       <div className="h-full flex items-center">
         <button
           onClick={() => setIsShowInput(!isShowInput)}
@@ -103,10 +113,10 @@ export default function CreateArrayButton({
           unmountOnExit
           onExit={() => setIsShowError(false)}
         >
-          <form className="bg-gray-300 h-fit  w-[24rem] px-1 pb-1 pt-3 ml-4 rounded-md flex flex-col shadow-lg relative">
+          <form className="bg-gray-300 md:h-fit w-[24rem] smMobile:w-[12rem] mobile:w-[16rem] px-1 pb-1 pt-3 ml-4 rounded-md flex flex-col shadow-lg relative">
             <button onClick={handleCloseForm}>
               <span
-                className={`material-icons text-3xl  absolute right-3 top-0 text-gray-500 hover:text-gray-800 transition ease-in`}
+                className={`material-icons text-3xl absolute right-3 smMobile:right-0 mobile:right-0 top-0 text-gray-800/30 hover:text-gray-800 transition ease-in`}
               >
                 cancel
               </span>
@@ -126,7 +136,7 @@ export default function CreateArrayButton({
                 onChange={handleOnchange}
                 disabled={isDisabled}
                 autoComplete="off"
-                className={`flex-1 mx-4 my-1 py-1 pr-8 border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
+                className={`flex-1 mx-4 my-1 py-1 smMobile:w-full border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
               focus:outline-none focus:ring-0 focus:border-blue-400 ${
                 isShowError && "focus:border-red-400"
               } cursor-pointer disabled:bg-gray-400

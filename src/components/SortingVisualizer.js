@@ -9,6 +9,7 @@ import CreateArrayButton from "./CreateArrayButton";
 import Legend from "./Legend";
 import AlertToast from "./AlertToast";
 import SortingAlgoInfo from "./SortingAlgoInfo";
+import Drawer from "./Drawer";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -40,6 +41,7 @@ export default function SortingVisualizer() {
   const [sortTimeDelay, setSortTimeDelay] = useState(0);
   const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
   const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
+  const [isShowDrawer, setIsShowDrawer] = useState(false);
 
   const resetSortState = () => {
     setCompare([]);
@@ -233,7 +235,7 @@ export default function SortingVisualizer() {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="overflow-y-hidden scrollbar-hide noselect">
       <AlertToast isShowAlert={isShowAlert} />
       <Navbar
         arrayLength={arrayLength}
@@ -254,8 +256,27 @@ export default function SortingVisualizer() {
         sortAlgoIdx={sortAlgoIdx}
         setSortAlgoIdx={setSortAlgoIdx}
         setSortTimeDelay={setSortTimeDelay}
+        setIsShowDrawer={setIsShowDrawer}
       />
-      {sortTimeDelay}
+      <Drawer
+        arrayLength={arrayLength}
+        handleArrayLength={handleArrayLength}
+        sortSpeed={sortSpeed}
+        handleSortSpeed={handleSortSpeed}
+        randomArr={() => {
+          generateRandomArr(arrayLength);
+        }}
+        sortAlgo={sortAlgo}
+        setSortAlgo={setSortAlgo}
+        handleSort={() => {
+          handleSort(sortAlgo);
+        }}
+        isDisabled={isSorting}
+        isAsc={isAsc}
+        handleToggleAsc={handleToggleAsc}
+        isShowDrawer={isShowDrawer}
+        setIsShowDrawer={setIsShowDrawer}
+      />
       <ArrayList
         array={array}
         compare={compare}

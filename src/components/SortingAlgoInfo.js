@@ -35,14 +35,16 @@ export default function SortingAlgoInfo({
             <div className="grid lg:grid-cols-2 gap-x-16 px-8 pt-3 mt-1 text-4xl font-bold">
               <h1 className="py-4 lg:py-1">{sortAlgoName}</h1>
               <div className="flex py-4 lg:py-1">
-                <h1>Sort Time: </h1>
+                <h1>Sort Time:&nbsp;</h1>
                 <p className="text-blue-500 italic">{sortTimeDelay} ms</p>
               </div>
             </div>
             <div className="grid lg:grid-cols-2 my-6">
               <div className="flex flex-col px-8 border-r-0 lg:border-r-2 cursor-default">
                 <article>
-                  <h3 className="text-xl font-semibold pb-4">Description</h3>
+                  <h3 className="text-xl font-semibold pb-4 underline decoration-gray-400">
+                    Description
+                  </h3>
                   <p className="font-[500] text-justify">
                     <a
                       href={wikiLink}
@@ -57,8 +59,8 @@ export default function SortingAlgoInfo({
                 </article>
               </div>
 
-              <div className="flex flex-col px-8 my-6">
-                <h3 className="text-xl font-semibold pb-4 underline decoration-blue-300">
+              <div className="flex flex-col px-8 my-6 z-0">
+                <h3 className="text-xl font-semibold pb-4 underline decoration-gray-400">
                   Performance
                 </h3>
                 <div className="grid grid-cols-4/2 font-semibold text-gray-500 text-lg">
@@ -67,7 +69,7 @@ export default function SortingAlgoInfo({
                     href={wikiLink}
                     rel="noreferrer"
                     target="_blank"
-                    className="flex justify-between py-1 px-2 italic text-blue-500"
+                    className="flex justify-between py-1 px-2 italic text-blue-500 w-fit"
                   >
                     {worstCase}
                   </a>
@@ -78,7 +80,7 @@ export default function SortingAlgoInfo({
                     href={wikiLink}
                     rel="noreferrer"
                     target="_blank"
-                    className="flex justify-between py-1 px-2 italic text-blue-500"
+                    className="flex justify-between py-1 px-2 italic text-blue-500 w-fit"
                   >
                     {bestCase}
                   </a>
@@ -89,7 +91,7 @@ export default function SortingAlgoInfo({
                     href={wikiLink}
                     rel="noreferrer"
                     target="_blank"
-                    className="flex justify-between py-1 px-2 italic text-blue-500"
+                    className="flex justify-between py-1 px-2 italic text-blue-500 w-fit"
                   >
                     {averageCase}
                   </a>
@@ -100,7 +102,7 @@ export default function SortingAlgoInfo({
                     href={wikiLink}
                     rel="noreferrer"
                     target="_blank"
-                    className="flex justify-between py-1 px-2 italic text-blue-500"
+                    className="flex justify-between py-1 px-2 italic text-blue-500 w-fit"
                   >
                     {spaceComplexity}
                   </a>
