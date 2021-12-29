@@ -16,7 +16,7 @@ export default function ArrayList({
   sortedArray,
 }) {
   return (
-    <div className="w-full h-[60vh] flex items-end px-4 mb-2 mt-[100px]">
+    <div className="w-full h-[65vh] flex items-end px-4 mb-2 mt-[100px]">
       {array.map((barHeight, index) => {
         let bg = blue_400;
 

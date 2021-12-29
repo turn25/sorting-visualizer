@@ -88,6 +88,9 @@ module.exports = {
       boxShadow: {
         navbar: "0 10px 15px rgba(100, 100, 100, 0.2)",
       },
+      gridTemplateColumns: {
+        "4/2": "4fr 2fr",
+      },
     },
   },
   plugins: [require("@tailwindcss/custom-forms")],

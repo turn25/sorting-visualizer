@@ -2,32 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  /* Slider */
-  input:checked ~ .dot {
-    transform: translateX(100%);
-    background-color: #3b82f6;
-  }
+/* Slider */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #3b82f6;
+}
 
-  input:checked ~ .dot:hover {
-    background-color: #2563eb;
-  }
+input:checked ~ .dot:hover {
+  background-color: #2563eb;
+}
 
-  input:disabled ~ .dot,
-  input:disabled ~ .dot:hover {
-    background-color: #6b7280;
-  }
+input:disabled ~ .dot,
+input:disabled ~ .dot:hover {
+  background-color: #6b7280;
+}
 
-  input:checked ~ .bar {
-    background-color: #93c5fd;
-  }
+input:checked ~ .bar {
+  background-color: #93c5fd;
+}
 
-  input:checked ~ .bar:hover {
-    background-color: #60a5fa;
-  }
+input:checked ~ .bar:hover {
+  background-color: #60a5fa;
+}
 
-  input:disabled ~ .bar,
-  input:disabled ~ .bar:hover {
-    background-color: #9ca3af;
-  }
+input:disabled ~ .bar,
+input:disabled ~ .bar:hover {
+  background-color: #9ca3af;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 100vh;
+  border: 3px solid #f3f4f6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }

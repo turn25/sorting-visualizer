@@ -24,7 +24,7 @@ export default function Navbar({
   const [animationDirection, setAnimationDirection] = useState("");
 
   return (
-    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700 text-white flex-col md:flex-row md:justify-between gap-y-1 shadow-navbar fixed top-0 w-full">
+    <nav className="flex justify-center items-center min-h-[100px] p-4 bg-gray-700/90 rounded-b-sm backdrop-blur-md text-white flex-col md:flex-row md:justify-between gap-y-1 shadow-navbar fixed top-0 w-full z-10">
       <div className="flex-1 flex items-center cursor-default">
         <span className="material-icons text-lg lg:text-2xl font-bold px-1">
           sort
