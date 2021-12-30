@@ -49,9 +49,9 @@ export default function Drawer({
         ref={drawerRef}
         className="fixed top-0 left-0 bg-gray-700/95 backdrop-blur-md h-full w-72 flex md:hidden items-start justify-center shadow-drawer z-20 "
       >
-        <button onClick={() => setIsShowDrawer(false)} className="">
+        <button onClick={() => setIsShowDrawer(false)}>
           <span className="material-icons text-white text-3xl rounded-full px-1 absolute right-6 top-10  bg-blue-400/50 hover:bg-blue-400 focus:bg-blue-400 transition ease-in">
-            chevron_{isShowDrawer ? "right" : "left"}
+            chevron_left
           </span>
         </button>
 

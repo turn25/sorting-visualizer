@@ -89,6 +89,27 @@ const SortAlgos = [
       wikiLink: "https://en.wikipedia.org/wiki/Shellsort",
     },
   ],
+  [
+    {
+      id: 5,
+      name: "Quick Sort",
+      value: "QuickSort",
+      worstCase: (
+        <span>
+          O(n<sup></sup>)
+        </span>
+      ),
+      bestCase: <span>O(n log n)</span>,
+      averageCase: (
+        <span>
+          O(n<sup></sup>)
+        </span>
+      ),
+      spaceComplexity: <span>O(1)</span>,
+      description: ``,
+      wikiLink: "https://en.wikipedia.org/wiki/Quicksort",
+    },
+  ],
 ];
 
 export default SortAlgos;

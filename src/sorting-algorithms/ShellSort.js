@@ -10,14 +10,12 @@ const ShellSort = (array, isAsc) => {
   //With this, the gap starts as half of the tmpArray length, and then half of that every time
   for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
     //Do a insertion sort for each of the section the gap ends up dividing
-    //Give index2 to have ref when set bg color in ArrayList
-    for (let i = 0; i < gap; i++) {
-      order.push([null, 1, null, i]);
-    }
+
+    //Only push gap
+    order.push([gap, null, null, null]);
     for (let i = gap; i < n; i++) {
       //This is the insertion sort to sort the section into order
       let j;
-      order.push([gap, null, null, null]);
 
       for (j = i; j >= gap; j = j - gap) {
         if (tmpArr[isAsc ? j - gap : j] > tmpArr[isAsc ? j : j - gap]) {

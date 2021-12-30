@@ -16,6 +16,7 @@ import BubbleSort from "../sorting-algorithms/BubbleSort";
 import InsertionSort from "../sorting-algorithms/InsertionSort";
 import SelectionSort from "../sorting-algorithms/SelectionSort";
 import ShellSort from "../sorting-algorithms/ShellSort";
+import QuickSort from "../sorting-algorithms/QuickSort";
 
 //Utils
 import checkArray from "../utils/checkArray";
@@ -42,6 +43,17 @@ export default function SortingVisualizer() {
   const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
   const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
   const [isShowDrawer, setIsShowDrawer] = useState(false);
+
+  const [timeoutIds, setTimeoutIds] = useState([]);
+  const [progressBarTimeoutIds, setProgressBarTimeoutIds] = useState([]);
+  const [orderStep, setOrderStep] = useState(0);
+  const [currentOrder, setCurrentOrder] = useState([]);
+  const [isPause, setIsPause] = useState(false);
+
+  //initial array & handle change array when change value in Array Length slider
+  useEffect(() => {
+    generateRandomArr(arrayLength);
+  }, [arrayLength]);
 
   const resetSortState = () => {
     setCompare([]);
@@ -81,6 +93,7 @@ export default function SortingVisualizer() {
     resetSortState();
 
     let orders;
+
     switch (algo) {
       case "BubbleSort":
         orders = BubbleSort(array, isAsc);
@@ -93,33 +106,31 @@ export default function SortingVisualizer() {
         break;
       case "ShellSort":
         orders = ShellSort(array, isAsc);
-        handleShellSortOrder(orders);
-        handleProgressBar(orders);
-        handleSortTimeDelay(orders);
-        handleSortedArray(orders);
-        handleResetSortState(orders);
-        return;
+        break;
+      case "QuickSort":
+        orders = QuickSort(array, isAsc);
+        break;
 
       default:
         console.log("Error");
         return;
     }
-
     handleSortOrder(orders);
     handleProgressBar(orders);
-    handleSortTimeDelay(orders);
-    handleSortedArray(orders);
-    handleResetSortState(orders);
+    // handleSortTimeDelay(orders);
   };
 
   const handleSortOrder = (order) => {
+    setTimeoutIds([]);
+    setOrderStep(0);
+    setCurrentOrder([...order]);
     setIsSorting(true);
     setIsSorted(false);
 
     //destructuring the data from the i-th order item
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
-      setTimeout(() => {
+      let timeoutId = setTimeout(() => {
         setCompare([idx1, idx2]); //set compared bars color (compare color)
         setSwap([]); // no swap
 
@@ -133,35 +144,20 @@ export default function SortingVisualizer() {
           // if have index1 or index2 => setSwap to change bar color (swap color)
           if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
         }
-      }, orderIdx * sortSpeed);
-    });
-  };
 
-  const handleShellSortOrder = (order) => {
-    setIsSorting(true);
-    setIsSorted(false);
+        // setSortTimeDelay(orderIdx * sortSpeed);
 
-    //destructuring the data from the i-th order item
-    order.forEach(([idx1, idx2, arr, index], orderIdx) => {
-      //set Timeout increse for each item
-      setTimeout(() => {
-        if (idx1 !== null && idx2 !== 1) setCompare([idx1, idx2]); //set compared bars color (compare color)
-        setSwap([]); // no swap
+        // save current step
+        setOrderStep((step) => step + 1);
 
-        //for shellsort, clear bar color change
-        if (idx1) setSortedIndex([]);
-
-        // add all sorted index to sortedIndex array to change bar color (sorted color)
-        if (index !== null)
-          setSortedIndex((prevIndex) => [...prevIndex, index]);
-
-        // if order[i] return an arr
-        if (arr) {
-          setArray(arr);
-          // if have index1 or index2 => setSwap to change bar color (swap color)
-          if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
+        // cleanup
+        if (orderIdx === order.length - 1) {
+          handleSortedArray(order);
+          handleResetSortState(order);
         }
       }, orderIdx * sortSpeed);
+      // add new timeoutid to use clearTimeout in pause function
+      setTimeoutIds((timeoutIds) => [...timeoutIds, timeoutId]);
     });
   };
 
@@ -192,7 +188,9 @@ export default function SortingVisualizer() {
     //update progress bar
     for (let i = 0; i <= order.length; i = i + step) {
       setTimeout(() => {
-        setProgressBarPercent(Math.ceil((i / order.length) * 100));
+        // setProgressBarPercent(Math.ceil((i / order.length) * 100));
+        // setProgressBarPercent(Math.abs(currentOrder.length - order))
+        // console.log(currentOrder.length);
       }, i * sortSpeed);
     }
   };
@@ -206,10 +204,23 @@ export default function SortingVisualizer() {
     });
   };
 
-  //initial array & handle change array when change value in Array Length slider
-  useEffect(() => {
-    generateRandomArr(arrayLength);
-  }, [arrayLength]);
+  // Actions
+  // pause sorting visualizer
+  const pauseSorting = () => {
+    setIsPause(true);
+    timeoutIds.forEach((timeoutId) => {
+      clearTimeout(timeoutId);
+    });
+    setTimeoutIds([]);
+    setIsSorting(false);
+  };
+
+  // resume sorting visualizer
+  const continueSorting = () => {
+    setIsPause(false);
+    const tmpOrders = currentOrder.slice(orderStep);
+    handleSortOrder(tmpOrders);
+  };
 
   //handle change slider value
   const handleArrayLength = (e) => {
@@ -279,6 +290,19 @@ export default function SortingVisualizer() {
         sortAlgoIdx={sortAlgoIdx}
         setSortAlgoIdx={setSortAlgoIdx}
       />
+      <button
+        onClick={continueSorting}
+        className="pt-[120px] p-4 bg-gray-500 text-white text-5xl font-bold"
+      >
+        CONTINUE
+      </button>
+      <button
+        onClick={pauseSorting}
+        className="pt-[120px] p-4 bg-gray-500 text-white text-5xl font-bold"
+      >
+        STOP
+      </button>
+
       <ArrayList
         array={array}
         compare={compare}
