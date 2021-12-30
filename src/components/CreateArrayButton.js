@@ -125,7 +125,7 @@ export default function CreateArrayButton({
               <span className="material-icons mx-1 text-gray-600">
                 keyboard
               </span>
-              Input Array Of Numbers:
+              Input Numbers:
             </label>
             <div className="flex flex-row p-0 m-0 relative">
               <input
@@ -136,7 +136,7 @@ export default function CreateArrayButton({
                 onChange={handleOnchange}
                 disabled={isDisabled}
                 autoComplete="off"
-                className={`flex-1 mx-4 my-1 py-1 pr-8 smMobile:w-full border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
+                className={`flex-1 mx-4 my-1 py-1 pr-8 w-32 smMobile:w-full border-transparent outline-none border-b-2 rounded-t-md rounded-sm px-3 
               focus:outline-none focus:ring-0 focus:border-blue-400 ${
                 isShowError && "focus:border-red-400"
               } cursor-pointer disabled:bg-gray-400

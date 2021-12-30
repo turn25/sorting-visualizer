@@ -91,6 +91,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         "4/2": "4fr 2fr",
+        "5/1": "5fr 1fr",
       },
       screens: {
         smMobile: { max: "320px" },

@@ -63,7 +63,7 @@ export default function SortingAlgoInfo({
                 <h3 className="text-xl font-semibold pb-4 underline decoration-gray-400">
                   Performance
                 </h3>
-                <div className="grid grid-cols-4/2 font-semibold text-gray-500 text-lg">
+                <div className="grid grid-cols-5/1  md:grid-cols-4/2 font-semibold text-gray-500 text-lg">
                   <h2 className="py-1 px-2">Worst-case performance</h2>
                   <a
                     href={wikiLink}
