@@ -317,13 +317,17 @@ export default function SortingVisualizer() {
         handleSort={() => {
           handleSort(sortAlgo);
         }}
-        isDisabled={isSorting}
+        isSorting={isSorting}
+        isPause={isPause}
         isAsc={isAsc}
         handleToggleAsc={handleToggleAsc}
         isShowDrawer={isShowDrawer}
         setIsShowDrawer={setIsShowDrawer}
         sortAlgoIdx={sortAlgoIdx}
         setSortAlgoIdx={setSortAlgoIdx}
+        isSorted={isSorted}
+        pauseSorting={pauseSorting}
+        continueSorting={continueSorting}
       />
       <ArrayList
         array={array}

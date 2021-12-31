@@ -18,10 +18,14 @@ export default function Drawer({
   handleSort,
   isAsc,
   handleToggleAsc,
-  isDisabled,
+  isSorting,
+  isPause,
   isShowDrawer,
   setIsShowDrawer,
   setSortAlgoIdx,
+  isSorted,
+  pauseSorting,
+  continueSorting,
 }) {
   // detect click/tap outside drawer
   const drawerRef = useRef();
@@ -60,7 +64,7 @@ export default function Drawer({
 
           <select
             onChange={(e) => setSortAlgo(e.target.value)}
-            disabled={isDisabled}
+            disabled={isSorting}
             value={sortAlgo}
             className="bg-transparent font-semibold focus:ring-0 focus:outline-none w-full text-center"
           >
@@ -86,7 +90,7 @@ export default function Drawer({
             valuePlaceHolder={arrayLength}
             step="1"
             handleOnChange={handleArrayLength}
-            disabled={isDisabled}
+            disabled={isSorting || isPause}
           />
           <Slider
             name="sortSpeed"
@@ -98,25 +102,24 @@ export default function Drawer({
             value={Math.abs(sortSpeed - 500) + 10}
             step="1"
             handleOnChange={handleSortSpeed}
-            disabled={isDisabled}
+            disabled={isSorting}
           />
           <ToggleSwitch
             isAsc={isAsc}
             handleToggleAsc={handleToggleAsc}
-            isDisabled={isDisabled}
+            isSorting={isSorting || isPause}
           />
+          <Button placeHolder="Random Array" handleOnClick={randomArr} />
           <Button
-            placeHolder="Random Array"
-            handleOnClick={randomArr}
-            disabled={isDisabled}
-          />
-          <Button
-            placeHolder="Sort"
+            placeHolder={isPause ? "Continue" : isSorting ? "Pause" : "Sort"}
             handleOnClick={() => {
-              handleSort();
+              if (!isPause && !isSorting) {
+                handleSort();
+              } else if (isPause) continueSorting();
+              else pauseSorting();
               setIsShowDrawer(false);
             }}
-            disabled={isDisabled}
+            disabled={isSorted}
           />
         </div>
       </div>
