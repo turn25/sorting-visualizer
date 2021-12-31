@@ -4,6 +4,7 @@ const SortAlgos = [
       id: 1,
       name: "Bubble Sort",
       value: "BubbleSort",
+      legends: ["Compare", "Swap", "Sorted"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)
@@ -25,6 +26,7 @@ const SortAlgos = [
       id: 2,
       name: "Insertion Sort",
       value: "InsertionSort",
+      legends: ["Compare", "Swap", "Sorted"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)
@@ -48,6 +50,7 @@ const SortAlgos = [
       id: 3,
       name: "Selection Sort",
       value: "SelectionSort",
+      legends: ["Compare", "Swap", "Sorted"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)
@@ -78,6 +81,7 @@ const SortAlgos = [
       id: 4,
       name: "Shell Sort",
       value: "ShellSort",
+      legends: ["Compare", "Swap", "Sorted", "Gap"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)
@@ -104,6 +108,7 @@ const SortAlgos = [
       id: 5,
       name: "Quick Sort",
       value: "QuickSort",
+      legends: ["Compare", "Swap", "Sorted", "Pivot"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)

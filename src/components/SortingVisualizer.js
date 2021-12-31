@@ -318,6 +318,7 @@ export default function SortingVisualizer() {
         isSorted={isSorted}
         sortAlgo={sortAlgo}
         isChangeSortAlgo={isChangeSortAlgo}
+        sortAlgoIdx={sortAlgoIdx}
       />
       <SortingAlgoInfo
         sortAlgoIdx={sortAlgoIdx}
