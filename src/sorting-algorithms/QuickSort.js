@@ -3,13 +3,13 @@ import generateRandomNumber from "../utils/generateRandomNumber";
 
 let order;
 
-const partition = (array, left, right) => {
+const partition = (array, left, right, isAsc) => {
   const pivot = left;
   let j = left;
 
   for (let i = left + 1; i <= right; i++) {
     order.push([i, pivot, null, null]);
-    if (array[i] < array[pivot]) {
+    if (array[isAsc ? i : pivot] < array[isAsc ? pivot : i]) {
       j = j + 1;
       swap(array, i, j);
       order.push([i, j, array.slice(), null]);
@@ -22,7 +22,7 @@ const partition = (array, left, right) => {
   return j;
 };
 
-const quickSortHelper = (array, left, right) => {
+const quickSortHelper = (array, left, right, isAsc) => {
   if (left >= right) {
     if (left === right) order.push([null, null, null, left]);
     return;
@@ -35,10 +35,10 @@ const quickSortHelper = (array, left, right) => {
   swap(array, left, pivot);
   order.push([left, pivot, array.slice(), null]);
 
-  const mid = partition(array, left, right); //find middle index
+  const mid = partition(array, left, right, isAsc); //find middle index
 
-  quickSortHelper(array, left, mid - 1);
-  quickSortHelper(array, mid + 1, right);
+  quickSortHelper(array, left, mid - 1, isAsc);
+  quickSortHelper(array, mid + 1, right, isAsc);
 
   return;
 };
@@ -47,10 +47,8 @@ const QuickSort = (array, isAsc) => {
   let tmpArr = array.slice(); //copy array, avoid side effects
   order = [];
 
-  quickSortHelper(tmpArr, 0, tmpArr.length - 1);
+  quickSortHelper(tmpArr, 0, tmpArr.length - 1, isAsc);
 
-  console.log("arr: " + array);
-  console.log("sorted: " + tmpArr);
   return order;
 };
 
