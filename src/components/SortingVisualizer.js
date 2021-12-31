@@ -48,6 +48,7 @@ export default function SortingVisualizer() {
   const [sortTimeDelay, setSortTimeDelay] = useState(0); //time counter
   const [timeoutIds, setTimeoutIds] = useState([]); //clear timeout
   const [orderStep, setOrderStep] = useState(0);
+  const [previewStep, setPreviewStep] = useState(1);
   const [currentOrders, setCurrentOrders] = useState([]);
   //isShow
   const [isShowAlert, setIsShowAlert] = useState(false);
@@ -143,19 +144,7 @@ export default function SortingVisualizer() {
     order.forEach(([idx1, idx2, arr, index], orderIdx) => {
       //set Timeout increse for each item
       let timeoutId = setTimeout(() => {
-        setCompare([idx1, idx2]); //set compared bars color (compare color)
-        setSwap([]); // no swap
-
-        // add all sorted index to sortedIndex array to change bar color (sorted color)
-        if (index !== null)
-          setSortedIndex((prevIndex) => [...prevIndex, index]);
-
-        // if order[i] return an arr
-        if (arr) {
-          setArray(arr);
-          // if have index1 or index2 => setSwap to change bar color (swap color)
-          if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
-        }
+        getBarColor(idx1, idx2, arr, index);
 
         // save sort visualizer time
         setSortTimeDelay((prevTime) => prevTime + sortSpeed);
@@ -166,8 +155,8 @@ export default function SortingVisualizer() {
         // cleanup
         if (orderIdx === order.length - 1) {
           setIsSorted(true);
-          handleSortedArray(order);
-          handleResetSortState(order);
+          handleSortedArray();
+          handleResetSortState();
         }
       }, orderIdx * sortSpeed);
       // add new timeoutid to use clearTimeout in pause function
@@ -175,8 +164,24 @@ export default function SortingVisualizer() {
     });
   };
 
+  // handle change bars color
+  const getBarColor = (idx1, idx2, arr, index) => {
+    setCompare([idx1, idx2]); //set compared bars color (compare color)
+    setSwap([]); // no swap
+
+    // add all sorted index to sortedIndex array to change bar color (sorted color)
+    if (index !== null) setSortedIndex((prevIndex) => [...prevIndex, index]);
+
+    // if order[i] return an arr
+    if (arr) {
+      setArray(arr);
+      // if have index1 or index2 => setSwap to change bar color (swap color)
+      if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
+    }
+  };
+
   // handle highlight bar after sorting complete
-  const handleSortedArray = (order) => {
+  const handleSortedArray = () => {
     for (let i = 0; i < arrayLength; i++) {
       setTimeout(() => {
         setSortedArray((prevIndex) => [...prevIndex, i]);
@@ -185,7 +190,7 @@ export default function SortingVisualizer() {
   };
 
   // reset sort state after sorting complete
-  const handleResetSortState = (order) => {
+  const handleResetSortState = () => {
     const delayTime = arrayLength * 15;
     setTimeout(() => {
       setIsSorting(false);
@@ -213,7 +218,39 @@ export default function SortingVisualizer() {
     setIsPause(false);
     const tmpOrders = currentOrders.slice(orderStep);
     handleSortOrder(tmpOrders);
-    // handleProgressBar(tmpOrders);
+  };
+
+  // go to prev step
+  const prevStep = () => {
+    let tmpOrders = currentOrders.slice(
+      orderStep - (1 + Number(previewStep)),
+      orderStep - 1
+    );
+
+    tmpOrders.forEach(([idx1, idx2, arr, index]) => {
+      getBarColor(idx1, idx2, arr, index);
+      setOrderStep((step) => step - 1);
+    });
+  };
+
+  // go to next step
+  const nextStep = () => {
+    const tmpOrders = currentOrders.slice(
+      orderStep,
+      orderStep + Number(previewStep)
+    );
+
+    tmpOrders.forEach(([idx1, idx2, arr, index]) => {
+      getBarColor(idx1, idx2, arr, index);
+      setOrderStep((step) => step + 1);
+    });
+
+    if (tmpOrders.length < Number(previewStep)) {
+      setIsPause(false);
+      setIsSorted(true);
+      handleSortedArray();
+      handleResetSortState();
+    }
   };
 
   //handle change slider value
@@ -308,11 +345,18 @@ export default function SortingVisualizer() {
         isSorting={isSorting}
         isSorted={isSorted}
         isPause={isPause}
+        randomArr={() => {
+          generateRandomArr(arrayLength);
+        }}
         handleSort={() => {
           handleSort(sortAlgo);
         }}
         pauseSorting={pauseSorting}
         continueSorting={continueSorting}
+        prevStep={prevStep}
+        nextStep={nextStep}
+        previewStep={previewStep}
+        setPreviewStep={setPreviewStep}
       />
       <Legend
         isSorted={isSorted}
