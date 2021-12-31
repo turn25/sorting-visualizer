@@ -106,17 +106,13 @@ const SortAlgos = [
       value: "QuickSort",
       worstCase: (
         <span>
-          O(n<sup></sup>)
+          O(n<sup>2</sup>)
         </span>
       ),
       bestCase: <span>O(n log n)</span>,
-      averageCase: (
-        <span>
-          O(n<sup></sup>)
-        </span>
-      ),
-      spaceComplexity: <span>O(1)</span>,
-      description: ` is an in-place sorting algorithm. Developed by British computer scientist Tony Hoare in 1959[1] and published in 1961, 
+      averageCase: <span>O(n log n)</span>,
+      spaceComplexity: <span>O(log n)</span>,
+      description: ` is an in-place sorting algorithm. Developed by British computer scientist Tony Hoare in 1959 and published in 1961, 
       it is still a commonly used algorithm for sorting. When implemented well, it can be somewhat faster than merge sort and about two or three times faster than heapsort.
       Quicksort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, 
       according to whether they are less than or greater than the pivot. For this reason, it is sometimes called partition-exchange sort.
