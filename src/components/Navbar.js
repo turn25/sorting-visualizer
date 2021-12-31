@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Slider from "./Slider";
 import Button from "./Button";
 import ToggleSwitch from "./ToggleSwitch";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+import "../Transition.css";
 
 // Sort Algos Info Data
 import SortAlgos from "../SortAlgo";
@@ -23,6 +25,9 @@ export default function Navbar({
   setSortAlgoIdx,
   setSortTimeDelay,
   setIsShowDrawer,
+  pauseSorting,
+  continueSorting,
+  isSorted,
 }) {
   const [animationDirection, setAnimationDirection] = useState("");
 
@@ -44,11 +49,7 @@ export default function Navbar({
       </div>
 
       <div className="flex-1 hidden md:flex items-center justify-center justify gap-x-4">
-        <Button
-          placeHolder="Random Array"
-          handleOnClick={randomArr}
-          disabled={isDisabled || isPause}
-        />
+        <Button placeHolder="Random Array" handleOnClick={randomArr} />
 
         {/* handle change sort algo */}
         <button
@@ -65,11 +66,13 @@ export default function Navbar({
             setSortTimeDelay(0);
             setIsChangeSortAlgo((isChangeSortAlgo) => !isChangeSortAlgo);
 
+            isPause && randomArr();
+
             //set animation direction
             setAnimationDirection("left");
           }}
           className="flex items-center animate-customWiggleLeft"
-          disabled={isDisabled || isPause}
+          disabled={isDisabled}
         >
           <span className="material-icons">chevron_left</span>
         </button>
@@ -96,19 +99,31 @@ export default function Navbar({
             setSortTimeDelay(0);
             setIsChangeSortAlgo((isChangeSortAlgo) => !isChangeSortAlgo);
 
+            isPause && randomArr();
+
             //set animation direction
             setAnimationDirection("right");
           }}
           className="flex items-center animate-customWiggleRight"
-          disabled={isDisabled || isPause}
+          disabled={isDisabled}
         >
           <span className="material-icons">chevron_right</span>
         </button>
-        <Button
-          placeHolder="Sort"
-          handleOnClick={handleSort}
-          disabled={isDisabled}
-        />
+        <SwitchTransition mode="out-in">
+          <CSSTransition
+            key={isPause}
+            addEndListener={(node, done) => {
+              node.addEventListener("transitionend", done, false);
+            }}
+            classNames="fade-3"
+          >
+            <Button
+              placeHolder={isPause ? "Continue" : "Pause"}
+              handleOnClick={isPause ? continueSorting : pauseSorting}
+              disabled={(!isPause && !isDisabled) || isSorted}
+            />
+          </CSSTransition>
+        </SwitchTransition>
       </div>
 
       <div className="flex-1 hidden md:flex flex-col xl:flex-row items-end justify-center xl:items-center xl:justify-end gap-x-5 h-full">

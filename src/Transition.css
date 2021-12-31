@@ -41,21 +41,39 @@
 }
 
 /* Fade 2*/
-.fade2-enter {
+.fade-2-enter {
   opacity: 0;
 }
-.fade2-enter-active {
+.fade-2-enter-active {
   opacity: 1;
 }
-.fade2-exit {
+.fade-2-exit {
   opacity: 1;
 }
-.fade2-exit-active {
+.fade-2-exit-active {
   opacity: 0;
 }
-.fade2-enter-active,
-.fade2-exit-active {
-  transition: opacity 300ms, transform 300ms;
+.fade-2-enter-active,
+.fade-2-exit-active {
+  transition: opacity 300ms;
+}
+
+/* Fade 3*/
+.fade-3-enter {
+  opacity: 0.5;
+}
+.fade-3-enter-active {
+  opacity: 1;
+}
+.fade-3-exit {
+  opacity: 1;
+}
+.fade-3-exit-active {
+  opacity: 0.5;
+}
+.fade-3-enter-active,
+.fade-3-exit-active {
+  transition: opacity 300ms;
 }
 
 /* Enter From Left */

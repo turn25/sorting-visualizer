@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function ProgressBar({ orderStep, currentOrders }) {
-  const [progressBarPercent, setProgressBarPercent] = useState(0);
-
-  useEffect(() => {
-    return () => {
-      setProgressBarPercent((orderStep / currentOrders.length) * 100);
-    };
-  }, [orderStep]);
-
+export default function ProgressBar({ progressBarPercent }) {
   const colorTransition = `${progressBarPercent < 100 ? "green" : "teal"}`;
 
   return (

@@ -29,7 +29,7 @@ export default function SortingAlgoInfo({
           addEndListener={(node, done) => {
             node.addEventListener("transitionend", done, false);
           }}
-          classNames="fade2"
+          classNames="fade-2"
         >
           <div className="h-full w-full cursor-default">
             <div className="grid lg:grid-cols-2 gap-x-16 px-8 pt-3 mt-1 text-4xl font-bold">

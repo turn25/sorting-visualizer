@@ -43,6 +43,7 @@ export default function SortingVisualizer() {
   const [isSorting, setIsSorting] = useState(true);
   const [isPause, setIsPause] = useState(false);
   const [inputArray, setInputArray] = useState("10,52,13,40,23"); //input form
+  const [progressBarPercent, setProgressBarPercent] = useState(0); //progress bar percent
   const [sortTimeDelay, setSortTimeDelay] = useState(0); //time counter
   const [timeoutIds, setTimeoutIds] = useState([]); //clear timeout
   const [orderStep, setOrderStep] = useState(0);
@@ -56,12 +57,21 @@ export default function SortingVisualizer() {
     generateRandomArr(arrayLength);
   }, [arrayLength]);
 
+  //change progress bar percent
+  useEffect(() => {
+    setProgressBarPercent((orderStep / currentOrders.length) * 100);
+  }, [orderStep]);
+
   const resetSortState = () => {
+    clearTimeoutIds();
+    setSwap([]);
     setCompare([]);
     setSortedIndex([]);
     setSortedArray([]);
-
+    setProgressBarPercent(0);
+    setOrderStep(0);
     setSortTimeDelay(0);
+    setIsPause(false);
     setIsSorted(false);
     setIsSorting(false);
   };
@@ -154,6 +164,7 @@ export default function SortingVisualizer() {
 
         // cleanup
         if (orderIdx === order.length - 1) {
+          setIsSorted(true);
           handleSortedArray(order);
           handleResetSortState(order);
         }
@@ -177,18 +188,22 @@ export default function SortingVisualizer() {
     const delayTime = arrayLength * 15;
     setTimeout(() => {
       setIsSorting(false);
-      setIsSorted(true);
     }, delayTime);
   };
 
   // ACTIONS
-  // pause sorting visualizer
-  const pauseSorting = () => {
-    setIsPause(true);
+  //clearTimeout
+  const clearTimeoutIds = () => {
     timeoutIds.forEach((timeoutId) => {
       clearTimeout(timeoutId);
     });
     setTimeoutIds([]);
+  };
+
+  // pause sorting visualizer
+  const pauseSorting = () => {
+    setIsPause(true);
+    clearTimeoutIds();
     setIsSorting(false);
   };
 
@@ -247,6 +262,9 @@ export default function SortingVisualizer() {
         setSortAlgoIdx={setSortAlgoIdx}
         setSortTimeDelay={setSortTimeDelay}
         setIsShowDrawer={setIsShowDrawer}
+        pauseSorting={pauseSorting}
+        continueSorting={continueSorting}
+        isSorted={isSorted}
       />
       <Drawer
         arrayLength={arrayLength}
@@ -269,20 +287,6 @@ export default function SortingVisualizer() {
         sortAlgoIdx={sortAlgoIdx}
         setSortAlgoIdx={setSortAlgoIdx}
       />
-      <button
-        onClick={continueSorting}
-        className="pt-[120px] p-4 bg-gray-500 text-white text-5xl font-bold"
-      >
-        CONTINUE
-      </button>
-      <button
-        onClick={pauseSorting}
-        className="pt-[120px] p-4 bg-gray-500 text-white text-5xl font-bold"
-        disabled={!isSorting}
-      >
-        STOP
-      </button>
-
       <ArrayList
         array={array}
         compare={compare}
@@ -290,7 +294,7 @@ export default function SortingVisualizer() {
         sortedIndex={sortedIndex}
         sortedArray={sortedArray}
       />
-      <ProgressBar orderStep={orderStep} currentOrders={currentOrders} />
+      <ProgressBar progressBarPercent={progressBarPercent} />
       <CreateArrayButton
         value={inputArray}
         setInputArray={setInputArray}
