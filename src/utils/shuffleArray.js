@@ -1,5 +1,6 @@
 import swap from "./swap";
 
+//util
 const shuffleArray = (array) => {
   let currentIdx, randomIdx;
   currentIdx = array.length;
