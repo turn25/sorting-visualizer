@@ -28,27 +28,28 @@ export default function SortingVisualizer() {
   const [array, setArray] = useState([]);
   const [arrayLength, setArrayLength] = useState(30);
   const [sortSpeed, setSortSpeed] = useState(250);
+  //options
+  const [isAsc, setIsAsc] = useState(true);
   const [sortAlgo, setSortAlgo] = useState("BubbleSort");
+  const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
+  const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
+  //change bars color
   const [swap, setSwap] = useState([]);
   const [compare, setCompare] = useState([]);
   const [sortedIndex, setSortedIndex] = useState([]);
   const [sortedArray, setSortedArray] = useState([]);
-  const [progressBarPercent, setProgressBarPercent] = useState(0);
+  //current state
   const [isSorted, setIsSorted] = useState(false);
   const [isSorting, setIsSorting] = useState(true);
-  const [isShowAlert, setIsShowAlert] = useState(false);
-  const [inputArray, setInputArray] = useState("10,52,13,40,23");
-  const [isAsc, setIsAsc] = useState(true);
-  const [sortTimeDelay, setSortTimeDelay] = useState(0);
-  const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
-  const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
-  const [isShowDrawer, setIsShowDrawer] = useState(false);
-
-  const [timeoutIds, setTimeoutIds] = useState([]);
-  const [progressBarTimeoutIds, setProgressBarTimeoutIds] = useState([]);
-  const [orderStep, setOrderStep] = useState(0);
-  const [currentOrder, setCurrentOrder] = useState([]);
   const [isPause, setIsPause] = useState(false);
+  const [inputArray, setInputArray] = useState("10,52,13,40,23"); //input form
+  const [sortTimeDelay, setSortTimeDelay] = useState(0); //time counter
+  const [timeoutIds, setTimeoutIds] = useState([]); //clear timeout
+  const [orderStep, setOrderStep] = useState(0);
+  const [currentOrders, setCurrentOrders] = useState([]);
+  //isShow
+  const [isShowAlert, setIsShowAlert] = useState(false);
+  const [isShowDrawer, setIsShowDrawer] = useState(false);
 
   //initial array & handle change array when change value in Array Length slider
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function SortingVisualizer() {
     setCompare([]);
     setSortedIndex([]);
     setSortedArray([]);
-    setProgressBarPercent(0);
+
     setSortTimeDelay(0);
     setIsSorted(false);
     setIsSorting(false);
@@ -115,15 +116,15 @@ export default function SortingVisualizer() {
         console.log("Error");
         return;
     }
+
+    //save current orders
+    setCurrentOrders([...orders]);
+
     handleSortOrder(orders);
-    handleProgressBar(orders);
-    // handleSortTimeDelay(orders);
   };
 
   const handleSortOrder = (order) => {
     setTimeoutIds([]);
-    setOrderStep(0);
-    setCurrentOrder([...order]);
     setIsSorting(true);
     setIsSorted(false);
 
@@ -145,7 +146,8 @@ export default function SortingVisualizer() {
           if (idx1 !== null || idx2 !== null) setSwap([idx1, idx2]);
         }
 
-        // setSortTimeDelay(orderIdx * sortSpeed);
+        // save sort visualizer time
+        setSortTimeDelay((prevTime) => prevTime + sortSpeed);
 
         // save current step
         setOrderStep((step) => step + 1);
@@ -163,48 +165,23 @@ export default function SortingVisualizer() {
 
   // handle highlight bar after sorting complete
   const handleSortedArray = (order) => {
-    setTimeout(() => {
-      for (let i = 0; i < array.length; i++) {
-        setTimeout(() => {
-          setSortedArray((prevIndex) => [...prevIndex, i]);
-        }, i * 15);
-      }
-    }, order.length * sortSpeed);
+    for (let i = 0; i < arrayLength; i++) {
+      setTimeout(() => {
+        setSortedArray((prevIndex) => [...prevIndex, i]);
+      }, i * 15);
+    }
   };
 
   // reset sort state after sorting complete
   const handleResetSortState = (order) => {
-    //after "handleSortOrder() + handleSortedArray()" animations complete
-    const delayTime = order.length * sortSpeed + arrayLength * 15;
+    const delayTime = arrayLength * 15;
     setTimeout(() => {
       setIsSorting(false);
       setIsSorted(true);
     }, delayTime);
   };
 
-  // handle sorting progress bar
-  const handleProgressBar = (order) => {
-    const step = order.length / 100;
-    //update progress bar
-    for (let i = 0; i <= order.length; i = i + step) {
-      setTimeout(() => {
-        // setProgressBarPercent(Math.ceil((i / order.length) * 100));
-        // setProgressBarPercent(Math.abs(currentOrder.length - order))
-        // console.log(currentOrder.length);
-      }, i * sortSpeed);
-    }
-  };
-
-  // handle get sort time delay
-  const handleSortTimeDelay = (orders) => {
-    orders.forEach((order, index) => {
-      setTimeout(() => {
-        setSortTimeDelay(index * sortSpeed);
-      }, index * sortSpeed);
-    });
-  };
-
-  // Actions
+  // ACTIONS
   // pause sorting visualizer
   const pauseSorting = () => {
     setIsPause(true);
@@ -218,8 +195,9 @@ export default function SortingVisualizer() {
   // resume sorting visualizer
   const continueSorting = () => {
     setIsPause(false);
-    const tmpOrders = currentOrder.slice(orderStep);
+    const tmpOrders = currentOrders.slice(orderStep);
     handleSortOrder(tmpOrders);
+    // handleProgressBar(tmpOrders);
   };
 
   //handle change slider value
@@ -261,6 +239,7 @@ export default function SortingVisualizer() {
           handleSort(sortAlgo);
         }}
         isDisabled={isSorting}
+        isPause={isPause}
         isAsc={isAsc}
         handleToggleAsc={handleToggleAsc}
         setIsChangeSortAlgo={setIsChangeSortAlgo}
@@ -299,6 +278,7 @@ export default function SortingVisualizer() {
       <button
         onClick={pauseSorting}
         className="pt-[120px] p-4 bg-gray-500 text-white text-5xl font-bold"
+        disabled={!isSorting}
       >
         STOP
       </button>
@@ -310,10 +290,7 @@ export default function SortingVisualizer() {
         sortedIndex={sortedIndex}
         sortedArray={sortedArray}
       />
-      <ProgressBar
-        progressBarPercent={progressBarPercent}
-        arrayLength={array.length}
-      />
+      <ProgressBar orderStep={orderStep} currentOrders={currentOrders} />
       <CreateArrayButton
         value={inputArray}
         setInputArray={setInputArray}

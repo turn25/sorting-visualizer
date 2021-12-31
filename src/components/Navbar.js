@@ -15,6 +15,7 @@ export default function Navbar({
   setSortAlgo,
   handleSort,
   isDisabled,
+  isPause,
   isAsc,
   handleToggleAsc,
   setIsChangeSortAlgo,
@@ -46,7 +47,7 @@ export default function Navbar({
         <Button
           placeHolder="Random Array"
           handleOnClick={randomArr}
-          disabled={isDisabled}
+          disabled={isDisabled || isPause}
         />
 
         {/* handle change sort algo */}
@@ -68,7 +69,7 @@ export default function Navbar({
             setAnimationDirection("left");
           }}
           className="flex items-center animate-customWiggleLeft"
-          disabled={isDisabled}
+          disabled={isDisabled || isPause}
         >
           <span className="material-icons">chevron_left</span>
         </button>
@@ -77,7 +78,7 @@ export default function Navbar({
             key={id}
             placeHolder={name}
             handleOnClick={() => handleSort()}
-            disabled={isDisabled}
+            disabled={isDisabled || isPause}
             animationDirection={animationDirection}
           />
         ))}
@@ -99,7 +100,7 @@ export default function Navbar({
             setAnimationDirection("right");
           }}
           className="flex items-center animate-customWiggleRight"
-          disabled={isDisabled}
+          disabled={isDisabled || isPause}
         >
           <span className="material-icons">chevron_right</span>
         </button>
@@ -122,7 +123,7 @@ export default function Navbar({
           valuePlaceHolder={arrayLength}
           step="1"
           handleOnChange={handleArrayLength}
-          disabled={isDisabled}
+          disabled={isDisabled || isPause}
         />
         <Slider
           name="sortSpeed"
@@ -140,7 +141,7 @@ export default function Navbar({
         <ToggleSwitch
           isAsc={isAsc}
           handleToggleAsc={handleToggleAsc}
-          isDisabled={isDisabled}
+          isDisabled={isDisabled || isPause}
         />
       </div>
     </nav>
