@@ -54,7 +54,7 @@ export default function SortingAlgoInfo({
                     >
                       {sortAlgoName}
                     </a>
-                    , {description}
+                    {description}
                   </p>
                 </article>
               </div>
