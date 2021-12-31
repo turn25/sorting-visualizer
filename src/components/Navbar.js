@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Slider from "./Slider";
 import Button from "./Button";
 import ToggleSwitch from "./ToggleSwitch";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
-import "../Transition.css";
 
 // Sort Algos Info Data
 import SortAlgos from "../SortAlgo";
@@ -109,21 +107,12 @@ export default function Navbar({
         >
           <span className="material-icons">chevron_right</span>
         </button>
-        <SwitchTransition mode="out-in">
-          <CSSTransition
-            key={isPause}
-            addEndListener={(node, done) => {
-              node.addEventListener("transitionend", done, false);
-            }}
-            classNames="fade-3"
-          >
-            <Button
-              placeHolder={isPause ? "Continue" : "Pause"}
-              handleOnClick={isPause ? continueSorting : pauseSorting}
-              disabled={(!isPause && !isDisabled) || isSorted}
-            />
-          </CSSTransition>
-        </SwitchTransition>
+
+        <Button
+          placeHolder={isPause ? "Continue" : "Pause"}
+          handleOnClick={isPause ? continueSorting : pauseSorting}
+          disabled={(!isPause && !isDisabled) || isSorted}
+        />
       </div>
 
       <div className="flex-1 hidden md:flex flex-col xl:flex-row items-end justify-center xl:items-center xl:justify-end gap-x-5 h-full">

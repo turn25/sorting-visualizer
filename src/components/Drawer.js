@@ -107,7 +107,7 @@ export default function Drawer({
           <ToggleSwitch
             isAsc={isAsc}
             handleToggleAsc={handleToggleAsc}
-            isSorting={isSorting || isPause}
+            isDisabled={isSorting || isPause}
           />
           <Button placeHolder="Random Array" handleOnClick={randomArr} />
           <Button

@@ -363,7 +363,6 @@ export default function SortingVisualizer() {
         previewStep={previewStep}
         setPreviewStep={setPreviewStep}
       />
-      {sortSpeed}
       <Legend
         isSorted={isSorted}
         sortAlgo={sortAlgo}
