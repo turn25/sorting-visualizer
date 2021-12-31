@@ -144,7 +144,7 @@ export default function Navbar({
           name="sortSpeed"
           nameHeader="Sort Speed"
           minValue="10"
-          maxValue="500"
+          maxValue="490"
           leftValueText="Slow"
           rightValueText="Fast"
           value={Math.abs(sortSpeed - 500) + 10}

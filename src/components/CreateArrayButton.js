@@ -151,7 +151,7 @@ export default function CreateArrayButton({
                 </span>
                 <span
                   className="absolute hidden md:block top-50 -left-2 translate-y-[-50%] text-white text-sm font-semibold
-                  rounded-lg h-fit w-32 p-2 bg-blue-400 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transitio duration-100"
+                  rounded-lg h-fit w-32 p-2 bg-blue-400 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition duration-100"
                 >
                   Format An Array
                 </span>

@@ -194,6 +194,7 @@ export default function SortingVisualizer() {
     const delayTime = arrayLength * 15;
     setTimeout(() => {
       setIsSorting(false);
+      setCurrentOrders([]);
     }, delayTime);
   };
 
@@ -362,6 +363,7 @@ export default function SortingVisualizer() {
         previewStep={previewStep}
         setPreviewStep={setPreviewStep}
       />
+      {sortSpeed}
       <Legend
         isSorted={isSorted}
         sortAlgo={sortAlgo}

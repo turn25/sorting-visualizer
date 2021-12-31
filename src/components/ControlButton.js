@@ -18,8 +18,8 @@ export default function ControlButton({
   const handleSetStep = (e) => {
     const currentValue = e.target.value;
     setPreviewStep(currentValue.replace(/\D/, ""));
-    if (currentValue > 30) {
-      setPreviewStep(30);
+    if (currentValue > 20) {
+      setPreviewStep(20);
     } else if (currentValue === 0) setPreviewStep(1);
   };
 
@@ -75,18 +75,28 @@ export default function ControlButton({
       >
         <span className="material-icons text-6xl">skip_next</span>
       </button>
-      <input
-        type="tel"
-        name="previewStep"
-        maxLength="2"
-        value={previewStep}
-        onChange={handleSetStep}
-        placeholder="0"
-        autoComplete="off"
-        className={`h-12 w-12 text-3xl flex items-center justify-center text-center font-semibold text-${
-          !isPause ? "gray" : "blue"
-        }-400 focus:text-blue-400 focus:ring-0 focus:border-0 focus:outline-0 hover:scale-110 transition cursor-pointer`}
-      />
+      <div className="relative">
+        <input
+          type="tel"
+          name="previewStep"
+          maxLength="2"
+          value={previewStep}
+          onChange={handleSetStep}
+          placeholder="0"
+          autoComplete="off"
+          className={`h-12 w-12 text-3xl flex items-center justify-center text-center font-semibold text-${
+            !isPause ? "gray" : "blue"
+          }-400 focus:text-blue-400 focus:ring-0 focus:border-0 focus:outline-0 hover:scale-110 transition cursor-pointer`}
+        />
+        <div className="group">
+          <span className="material-icons text-gray-500 absolute -right-6 top-3 opacity-25 hover:opacity-100 transition ease-in cursor-pointer">
+            help
+          </span>
+          <span className="absolute w-48 flex justify-center font-semibold -top-10 -left-20 md:-left-8 bg-gray-500 rounded-xl py-2 text-white scale-0 group-hover:scale-100 group-focus:scale-100 transition">
+            Change Preview Step
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
