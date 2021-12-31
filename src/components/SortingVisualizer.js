@@ -10,6 +10,7 @@ import Legend from "./Legend";
 import AlertToast from "./AlertToast";
 import SortingAlgoInfo from "./SortingAlgoInfo";
 import Drawer from "./Drawer";
+import ControlButton from "./ControlButton";
 
 //Algorithms
 import BubbleSort from "../sorting-algorithms/BubbleSort";
@@ -302,6 +303,16 @@ export default function SortingVisualizer() {
         setArray={setArray}
         isDisabled={isSorting}
         reset={resetSortState}
+      />
+      <ControlButton
+        isSorting={isSorting}
+        isSorted={isSorted}
+        isPause={isPause}
+        handleSort={() => {
+          handleSort(sortAlgo);
+        }}
+        pauseSorting={pauseSorting}
+        continueSorting={continueSorting}
       />
       <Legend
         isSorted={isSorted}

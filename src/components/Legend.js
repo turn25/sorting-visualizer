@@ -8,7 +8,7 @@ export default function Legend({ isSorted, sortAlgo, isChangeSortAlgo }) {
   };
 
   return (
-    <div className=" px-10 max-w-[840px] h-[calc(100vh-65vh-100px)] mx-auto flex flex-col gap-y-6 mt-4">
+    <div className="px-10 max-w-[840px] h-[calc(100vh-60vh-100px-100px)] mx-auto flex flex-col gap-y-6">
       <form className="inline-flex gap-x-2 items-center justify-center transition-all ease-in">
         <label className="inline-flex items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
           <input
