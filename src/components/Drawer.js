@@ -48,10 +48,16 @@ export default function Drawer({
         </button>
 
         <div className="flex flex-col items-center gap-y-6 mt-[120px] px-8 text-white">
-          <h1 className="font-bold w-full text-xl">SORT ALGORITHM</h1>
+          <h1 className="font-bold w-full text-xl">SORTING ALGORITHM</h1>
 
           <select
-            onChange={(e) => setSortAlgo(e.target.value)}
+            onChange={(e) => {
+              if (isPause) {
+                randomArr();
+                setSortAlgo(e.target.value);
+              }
+              setSortAlgo(e.target.value);
+            }}
             disabled={isSorting}
             value={sortAlgo}
             className="bg-transparent font-semibold focus:ring-0 focus:outline-none w-full text-center"
