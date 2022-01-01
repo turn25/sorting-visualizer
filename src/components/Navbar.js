@@ -19,8 +19,8 @@ export default function Navbar({
   isAsc,
   handleToggleAsc,
   setIsChangeSortAlgo,
-  sortAlgoIdx,
-  setSortAlgoIdx,
+
+  currentSortAlgoIdx,
   setSortTimeDelay,
   setIsShowDrawer,
   pauseSorting,
@@ -52,10 +52,12 @@ export default function Navbar({
         {/* handle change sort algo */}
         <button
           onClick={() => {
-            const currentSortAlgoIdx =
-              sortAlgoIdx === 0 ? SortAlgos.length - 1 : sortAlgoIdx - 1; // if algoIdx === 0 length then set algo = algosLength
+            const getCurrentSortAlgoIdx =
+              currentSortAlgoIdx === 0
+                ? SortAlgos.length - 1
+                : currentSortAlgoIdx - 1; // if algoIdx === 0 length then set algo = algosLength
             // set sort algo idx
-            setSortAlgoIdx(currentSortAlgoIdx);
+            currentSortAlgoIdx = getCurrentSortAlgoIdx;
 
             // set sort algo
             const [index] = SortAlgos[currentSortAlgoIdx];
@@ -74,7 +76,7 @@ export default function Navbar({
         >
           <span className="material-icons">chevron_left</span>
         </button>
-        {SortAlgos[sortAlgoIdx].map(({ id, name }) => (
+        {SortAlgos[currentSortAlgoIdx].map(({ id, name }) => (
           <Button
             key={id}
             placeHolder={name}
@@ -85,10 +87,12 @@ export default function Navbar({
         ))}
         <button
           onClick={() => {
-            const currentSortAlgoIdx =
-              sortAlgoIdx === SortAlgos.length - 1 ? 0 : sortAlgoIdx + 1;
+            const getCurrentSortAlgoIdx =
+              currentSortAlgoIdx === SortAlgos.length - 1
+                ? 0
+                : currentSortAlgoIdx + 1;
             // set sort algo idx
-            setSortAlgoIdx(currentSortAlgoIdx);
+            currentSortAlgoIdx = getCurrentSortAlgoIdx;
 
             // set sort algo
             const [index] = SortAlgos[currentSortAlgoIdx];

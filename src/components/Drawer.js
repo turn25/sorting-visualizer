@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import SortAlgos from "../SortAlgo";
 import Button from "./Button";
 import Slider from "./Slider";
@@ -22,7 +22,6 @@ export default function Drawer({
   isPause,
   isShowDrawer,
   setIsShowDrawer,
-  setSortAlgoIdx,
   isSorted,
   pauseSorting,
   continueSorting,
@@ -30,17 +29,6 @@ export default function Drawer({
   // detect click/tap outside drawer
   const drawerRef = useRef();
   useClickOutside(drawerRef, setIsShowDrawer);
-
-  // change sortAlgoIdx to display on Sort Info Section
-  useEffect(() => {
-    for (let i = 0; i < SortAlgos.length; i++) {
-      let [{ value }] = SortAlgos[i];
-
-      if (value === sortAlgo) {
-        setSortAlgoIdx(i);
-      }
-    }
-  }, [sortAlgo]);
 
   return (
     <CSSTransition

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 //Components
 import Navbar from "./Navbar";
@@ -24,6 +24,8 @@ import checkArray from "../utils/checkArray";
 import generateRandomNumber from "../utils/generateRandomNumber";
 import shuffleArray from "../utils/shuffleArray";
 
+import SortAlgos from "../SortAlgo";
+
 export default function SortingVisualizer() {
   //React State
   const [array, setArray] = useState([]);
@@ -33,7 +35,6 @@ export default function SortingVisualizer() {
   const [isAsc, setIsAsc] = useState(true);
   const [sortAlgo, setSortAlgo] = useState("BubbleSort");
   const [isChangeSortAlgo, setIsChangeSortAlgo] = useState(false);
-  const [sortAlgoIdx, setSortAlgoIdx] = useState(0);
   //change bars color
   const [swap, setSwap] = useState([]);
   const [compare, setCompare] = useState([]);
@@ -63,6 +64,17 @@ export default function SortingVisualizer() {
   useEffect(() => {
     setProgressBarPercent((orderStep / currentOrders.length) * 100);
   }, [orderStep]);
+
+  //use useMemo to cache sort algo idx
+  const currentSortAlgoIdx = useMemo(() => {
+    for (let i = 0; i < SortAlgos.length; i++) {
+      let [{ value }] = SortAlgos[i];
+
+      if (value === sortAlgo) {
+        return i;
+      }
+    }
+  }, [sortAlgo]);
 
   const resetSortState = () => {
     clearTimeoutIds();
@@ -310,8 +322,7 @@ export default function SortingVisualizer() {
         isAsc={isAsc}
         handleToggleAsc={handleToggleAsc}
         setIsChangeSortAlgo={setIsChangeSortAlgo}
-        sortAlgoIdx={sortAlgoIdx}
-        setSortAlgoIdx={setSortAlgoIdx}
+        currentSortAlgoIdx={currentSortAlgoIdx}
         setSortTimeDelay={setSortTimeDelay}
         setIsShowDrawer={setIsShowDrawer}
         pauseSorting={pauseSorting}
@@ -337,8 +348,6 @@ export default function SortingVisualizer() {
         handleToggleAsc={handleToggleAsc}
         isShowDrawer={isShowDrawer}
         setIsShowDrawer={setIsShowDrawer}
-        sortAlgoIdx={sortAlgoIdx}
-        setSortAlgoIdx={setSortAlgoIdx}
         isSorted={isSorted}
         pauseSorting={pauseSorting}
         continueSorting={continueSorting}
@@ -376,14 +385,14 @@ export default function SortingVisualizer() {
         previewStep={previewStep}
         setPreviewStep={setPreviewStep}
       />
+
       <Legend
         isSorted={isSorted}
-        sortAlgo={sortAlgo}
         isChangeSortAlgo={isChangeSortAlgo}
-        sortAlgoIdx={sortAlgoIdx}
+        currentSortAlgoIdx={currentSortAlgoIdx}
       />
       <SortingAlgoInfo
-        sortAlgoIdx={sortAlgoIdx}
+        currentSortAlgoIdx={currentSortAlgoIdx}
         sortTimeDelay={sortTimeDelay}
         isChangeSortAlgo={isChangeSortAlgo}
       />

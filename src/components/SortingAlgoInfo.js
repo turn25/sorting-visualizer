@@ -4,7 +4,7 @@ import { CSSTransition, SwitchTransition } from "react-transition-group";
 import "../Transition.css";
 
 export default function SortingAlgoInfo({
-  sortAlgoIdx,
+  currentSortAlgoIdx,
   sortTimeDelay,
   isChangeSortAlgo,
 }) {
@@ -18,7 +18,7 @@ export default function SortingAlgoInfo({
       description,
       wikiLink,
     },
-  ] = SortAlgos[sortAlgoIdx];
+  ] = SortAlgos[currentSortAlgoIdx];
 
   return (
     <div className="h-full w-full md:px-[5%] lg:px-[15%] text-gray-800 overflow-y">

@@ -6,15 +6,14 @@ import SortAlgos from "../SortAlgo";
 
 export default function Legend({
   isSorted,
-  sortAlgo,
   isChangeSortAlgo,
-  sortAlgoIdx,
+  currentSortAlgoIdx,
 }) {
   const sortedColor = (sortedColor, unSortedColor) => {
     return isSorted ? sortedColor : unSortedColor;
   };
 
-  const [{ legends }] = SortAlgos[sortAlgoIdx];
+  const [{ legends }] = SortAlgos[currentSortAlgoIdx];
 
   return (
     <div className="px-10 max-w-[840px] h-[calc(100vh-60vh-100px-120px)] mx-auto flex flex-col gap-y-6">
