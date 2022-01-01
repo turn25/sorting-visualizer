@@ -93,7 +93,7 @@ export default function CreateArrayButton({
           onClick={() => setIsShowInput(!isShowInput)}
           className={`z-20 opacity-80 md:opacity-50 hover:opacity-100 ${
             isShowInput && "opacity-90"
-          } transition-all ease-in`}
+          } transition ease-in`}
         >
           <span
             className={`material-icons h-8 w-8 ${
@@ -140,7 +140,7 @@ export default function CreateArrayButton({
               focus:outline-none focus:ring-0 focus:border-blue-400 ${
                 isShowError && "focus:border-red-400"
               } cursor-pointer disabled:bg-gray-400
-              disabled:text-gray-300 disabled:cursor-not-allowed transition-all ease-in`}
+              disabled:text-gray-300 disabled:cursor-not-allowed transition ease-in`}
               />
               <button className="relative group">
                 <span
@@ -160,7 +160,7 @@ export default function CreateArrayButton({
             <button
               onClick={handleOnSave}
               disabled={isDisabled || isShowError}
-              className={`p-2 rounded-md text-white mx-4 my-1.5 ${handleErrorBtnClass()} transition-all ease-in`}
+              className={`p-2 rounded-md text-white mx-4 my-1.5 ${handleErrorBtnClass()} transition ease-in`}
             >
               {isShowError ? "Invalid Input" : "Go"}
             </button>
