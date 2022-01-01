@@ -28,7 +28,8 @@ export default function ArrayList({
 
         // if swap have index(idx) inside => change bar color that have the same idx
         if (swap && (index === swap[0] || index === swap[1])) bg = rose_400;
-        else if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
+
+        if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
 
         if (sortedArray && sortedArray.includes(index)) bg = teal_400;
 
