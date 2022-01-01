@@ -228,8 +228,21 @@ export default function SortingVisualizer() {
       orderStep - 1
     );
 
+    let sortedIdxOrder = currentOrders.slice(
+      orderStep - Number(previewStep),
+      orderStep
+    );
+
+    // remove current sorted index form array
+    sortedIdxOrder.forEach(([idx1, idx2, arr, index]) => {
+      if (index !== null)
+        setSortedIndex((prevIndexs) =>
+          prevIndexs.filter((sortedIndex) => sortedIndex !== index)
+        );
+    });
+
     tmpOrders.forEach(([idx1, idx2, arr, index]) => {
-      getBarColor(idx1, idx2, arr, index);
+      getBarColor(idx1, idx2, arr, null);
       setOrderStep((step) => step - 1);
     });
   };
