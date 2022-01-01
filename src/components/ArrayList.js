@@ -45,7 +45,7 @@ export default function ArrayList({
             }}
           >
             {array.length < 25 && (
-              <p className="w-full h-full hidden md:flex items-end justify-center pb-1 text-white transition ease-in duration-200 hover:opacity-60 hover:-translate-y-1.5 cursor-default">
+              <p className="w-full h-full hidden md:flex items-end justify-center pb-1 text-white font-semibold transition ease-in duration-200 hover:opacity-60 hover:-translate-y-1.5 cursor-default">
                 {barHeight}
               </p>
             )}
