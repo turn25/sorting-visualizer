@@ -127,6 +127,28 @@ const SortAlgos = [
       wikiLink: "https://en.wikipedia.org/wiki/Quicksort",
     },
   ],
+  [
+    {
+      id: 6,
+      name: "Merge Sort",
+      value: "MergeSort",
+      legends: [
+        "Compare",
+        "Overwrite From Auxiliary Space",
+        "Call Merge Sort",
+        "Mid",
+      ],
+      worstCase: <span>O(n log n)</span>,
+      bestCase: <span>O(n log n)</span>,
+      averageCase: <span>O(n log n)</span>,
+      spaceComplexity: <span>O(n)</span>,
+      description: ` (also commonly spelled as mergesort) is an efficient, general-purpose, and comparison-based sorting algorithm. 
+      Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output. 
+      Merge sort is a divide and conquer algorithm that was invented by John von Neumann in 1945. 
+      A detailed description and analysis of bottom-up merge sort appeared in a report by Goldstine and von Neumann as early as 1948 `,
+      wikiLink: "https://en.wikipedia.org/wiki/Mergesort",
+    },
+  ],
 ];
 
 export default SortAlgos;

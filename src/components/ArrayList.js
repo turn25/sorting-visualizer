@@ -20,7 +20,7 @@ export default function ArrayList({
         let bg = blue_400;
 
         // if compare only have 1 index
-        if (compare && index === compare[0] && compare[1] === null)
+        if (compare && index === compare[0] && compare[1] === -1)
           bg = amber_400;
         // if compare have 2 indexs(idx) inside => change bar color that have the same idx
         else if (compare && (index === compare[0] || index === compare[1]))
@@ -28,8 +28,7 @@ export default function ArrayList({
 
         // if swap have index(idx) inside => change bar color that have the same idx
         if (swap && (index === swap[0] || index === swap[1])) bg = rose_400;
-
-        if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
+        else if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
 
         if (sortedArray && sortedArray.includes(index)) bg = teal_400;
 

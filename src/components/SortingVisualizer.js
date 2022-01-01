@@ -18,6 +18,7 @@ import InsertionSort from "../sorting-algorithms/InsertionSort";
 import SelectionSort from "../sorting-algorithms/SelectionSort";
 import ShellSort from "../sorting-algorithms/ShellSort";
 import QuickSort from "../sorting-algorithms/QuickSort";
+import MergeSort from "../sorting-algorithms/MergeSort";
 
 //Utils
 import checkArray from "../utils/checkArray";
@@ -135,6 +136,9 @@ export default function SortingVisualizer() {
       case "QuickSort":
         orders = QuickSort(array, isAsc);
         break;
+      case "MergeSort":
+        orders = MergeSort(array, isAsc);
+        break;
 
       default:
         console.log("Error");
@@ -183,6 +187,8 @@ export default function SortingVisualizer() {
 
     // add all sorted index to sortedIndex array to change bar color (sorted color)
     if (index !== null) setSortedIndex((prevIndex) => [...prevIndex, index]);
+
+    if (idx2 === -1) setSortedIndex([]);
 
     // if order[i] return an arr
     if (arr) {
