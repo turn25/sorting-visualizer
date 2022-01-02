@@ -39,7 +39,6 @@ const merge = (array, left, mid, right, isAsc) => {
 
   // overwrite from auxiliary array
   // copy all elements inside aux array to array
-  // start to left to right
   for (let idx = left; idx <= right; idx++) {
     array[idx] = auxArr[idx - left];
     order.push([idx, null, array.slice(), null]);

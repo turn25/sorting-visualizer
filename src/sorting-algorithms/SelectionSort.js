@@ -4,8 +4,8 @@ const SelectionSort = (array, isAsc) => {
   // if ascending order, find minimum element in unsorted array then swap with the first element
   const tmpArr = array.slice(); //avoid side effects
   const order = [];
-
   //index1, index2, arr, sortedIndex
+
   let i, j;
 
   for (i = 0; i < tmpArr.length; i++) {

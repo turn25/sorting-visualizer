@@ -3,12 +3,12 @@ import swap from "../utils/swap";
 const InsertionSort = (array, isAsc) => {
   const tmpArr = array.slice(); //copy array, avoid side effects
   const order = [];
+  //index1, index2, arr, sorted index
 
   let i, j;
   //start from 1
   for (i = 1; i < tmpArr.length; i++) {
     //swap until condition reach break point
-    //index1, index2, arr, sorted index
     for (j = i - 1; j >= 0; j--) {
       //if isAsc then compare j > j + 1 (ascending) else j < j + 1 (descending)
       if (tmpArr[isAsc ? j : j + 1] > tmpArr[isAsc ? j + 1 : j]) {

@@ -67,7 +67,6 @@ export default function SortingVisualizer() {
     setProgressBarPercent((orderStep / currentOrders.length) * 100);
   }, [orderStep]);
 
-  //use useMemo to cache sort algo idx
   const currentSortAlgoIdx = useMemo(() => {
     for (let i = 0; i < SortAlgos.length; i++) {
       let [{ value }] = SortAlgos[i];
@@ -297,7 +296,7 @@ export default function SortingVisualizer() {
   };
 
   //handle change sort speed, set the delay time
-  //reverse the slider direction, min=500 max=10 in this case
+  //reverse the slider direction, min=500 max=20 in this case
   const handleSortSpeed = (e) => {
     setSortSpeed(Math.abs(e.target.value - 500) + 10);
   };
@@ -397,7 +396,6 @@ export default function SortingVisualizer() {
         previewStep={previewStep}
         setPreviewStep={setPreviewStep}
       />
-
       <Legend
         isSorted={isSorted}
         isChangeSortAlgo={isChangeSortAlgo}
