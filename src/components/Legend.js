@@ -70,16 +70,18 @@ export default function Legend({
             </div>
             <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
               <span
-                className={`bg-${sortedColor(
-                  "teal",
-                  "green"
-                )}-400 h-10 w-10 rounded-md transition-colors ease-in duration-500`}
+                className={`bg-${
+                  legends[2] === "Sorted"
+                    ? sortedColor("teal", "green")
+                    : "green"
+                }-400 h-10 w-10 rounded-md transition-colors ease-in duration-500`}
               />
               <p
-                className={`font-semibold text-${sortedColor(
-                  "teal",
-                  "green"
-                )}-500 cursor-default`}
+                className={`font-semibold text-${
+                  legends[2] === "Sorted"
+                    ? sortedColor("teal", "green")
+                    : "green"
+                }-500 cursor-default`}
               >
                 {legends[2]}
               </p>
