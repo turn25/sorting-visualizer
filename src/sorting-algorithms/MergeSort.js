@@ -70,10 +70,6 @@ const MergeSort = (array, isAsc) => {
 
   mergeSortHelper(tmpArr, 0, tmpArr.length - 1, isAsc);
 
-  for (let i = tmpArr.length; i >= 0; i--) {
-    order.push([null, null, null, i]);
-  }
-
   return order;
 };
 

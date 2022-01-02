@@ -81,7 +81,7 @@ const SortAlgos = [
       id: 4,
       name: "Shell Sort",
       value: "ShellSort",
-      legends: ["Compare", "Swap", "Sorted", "Gap"],
+      legends: ["Compare", "Swap", "Find Gap", "Gap"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)

@@ -11,6 +11,10 @@ const ShellSort = (array, isAsc) => {
   for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
     //Do a insertion sort for each of the section the gap ends up dividing
 
+    for (let i = 0; i < gap; i++) {
+      order.push([null, null, null, i]);
+    }
+
     //Only push gap
     order.push([gap, -1, null, null]);
     for (let i = gap; i < n; i++) {
@@ -25,11 +29,6 @@ const ShellSort = (array, isAsc) => {
         } else break;
       }
     }
-  }
-
-  //after the sorting completed
-  for (let i = n; i >= 0; i--) {
-    order.push([null, null, null, i]);
   }
 
   return order;

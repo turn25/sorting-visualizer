@@ -170,6 +170,8 @@ export default function SortingVisualizer() {
 
         // cleanup
         if (orderIdx === order.length - 1) {
+          setCompare([]);
+          setSwap([]);
           setIsSorted(true);
           handleSortedArray();
           handleResetSortState();
