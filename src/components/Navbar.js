@@ -43,7 +43,9 @@ export default function Navbar({
         <span className="material-icons hidden md:block text-lg lg:text-2xl font-bold px-1">
           sort
         </span>
-        <h1 className="font-bold text-3xl">Sorting Visualizer</h1>
+        <h1 className="font-bold text-3xl smMobile:font-semibold text-center md:text-left">
+          Sorting Visualizer
+        </h1>
       </div>
 
       <div className="flex-1 hidden md:flex items-center justify-center justify gap-x-4">

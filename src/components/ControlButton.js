@@ -88,11 +88,11 @@ export default function ControlButton({
             !isPause ? "gray" : "blue"
           }-400 focus:text-blue-400 focus:ring-0 focus:border-0 focus:outline-0 hover:scale-110 transition cursor-pointer`}
         />
-        <div className="group">
-          <span className="material-icons text-gray-500 absolute -right-6 top-3 opacity-25 hover:opacity-100 transition ease-in cursor-pointer">
+        <div className="group smMobile:hidden block">
+          <span className="material-icons text-gray-500 absolute -right-6 mobile:-right-2 top-3 opacity-25 hover:opacity-100 transition ease-in cursor-pointer">
             help
           </span>
-          <span className="absolute w-48 flex justify-center font-semibold -top-10 -left-20 md:-left-8 bg-gray-500 rounded-xl py-2 text-white scale-0 group-hover:scale-100 group-focus:scale-100 transition">
+          <span className="absolute w-48 flex justify-center font-semibold -top-10 -left-20 mobile:-left-32 md:-left-8 bg-gray-500 rounded-xl py-2 text-white scale-0 group-hover:scale-100 group-focus:scale-100 transition">
             Change Preview Step
           </span>
         </div>

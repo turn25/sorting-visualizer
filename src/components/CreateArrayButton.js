@@ -175,7 +175,7 @@ export default function CreateArrayButton({
           classNames="pop-up"
           unmountOnExit
         >
-          <div className="bg-red-400 w-[24rem] right-0 py-2 flex justify-center items-center absolute -top-12 rounded-lg text-white cursor-pointer">
+          <div className="bg-red-400 w-[24rem] smMobile:w-[12rem] mobile:w-[16rem] text-center  absolute -top-12 smMobile:-top-[4.5rem] mobile:-top-[4.5rem] right-0 py-2 flex justify-center items-center rounded-lg text-white cursor-pointer">
             <span className="material-icons">error</span>
             <p className="font-bold">Enter a number between 0 and 100</p>
           </div>
