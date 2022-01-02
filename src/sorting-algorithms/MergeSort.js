@@ -55,6 +55,7 @@ const mergeSortHelper = (array, left, right, isAsc) => {
   for (let i = left; i < mid; i++) {
     order.push([-1, null, null, i]);
   }
+
   // remove bar color
   order.push([null, -1, null, null]);
 
@@ -69,6 +70,11 @@ const MergeSort = (array, isAsc) => {
   order = [];
 
   mergeSortHelper(tmpArr, 0, tmpArr.length - 1, isAsc);
+
+  //after the sorting complete, push sorted items to array
+  for (let i = tmpArr.length; i >= 0; i--) {
+    order.push([null, null, null, i]);
+  }
 
   return order;
 };

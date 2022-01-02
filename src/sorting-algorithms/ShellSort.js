@@ -31,6 +31,11 @@ const ShellSort = (array, isAsc) => {
     }
   }
 
+  //after the sorting complete, push sorted items to array
+  for (let i = tmpArr.length; i >= 0; i--) {
+    order.push([null, null, null, i]);
+  }
+
   return order;
 };
 
