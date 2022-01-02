@@ -12,7 +12,7 @@ const ShellSort = (array, isAsc) => {
     //Do a insertion sort for each of the section the gap ends up dividing
 
     for (let i = 0; i < gap; i++) {
-      order.push([null, null, null, i]);
+      order.push([-1, null, null, i]);
     }
 
     //Only push gap

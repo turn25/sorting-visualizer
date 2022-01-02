@@ -81,7 +81,7 @@ const SortAlgos = [
       id: 4,
       name: "Shell Sort",
       value: "ShellSort",
-      legends: ["Compare", "Swap", "Find Gap", "Gap"],
+      legends: ["Compare", "Swap", "Sorted", "Gap", "Find Gap"],
       worstCase: (
         <span>
           O(n<sup>2</sup>)
@@ -134,9 +134,11 @@ const SortAlgos = [
       value: "MergeSort",
       legends: [
         "Compare",
-        "Overwrite From Auxiliary Space",
-        "Call Merge Sort",
+        "OW From Aux",
+        "Sorted",
         "Mid",
+        "Call Merge Sort",
+        "Overwrite From Auxiliary Space",
       ],
       worstCase: <span>O(n log n)</span>,
       bestCase: <span>O(n log n)</span>,

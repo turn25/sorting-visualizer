@@ -53,7 +53,7 @@ const mergeSortHelper = (array, left, right, isAsc) => {
 
   //set change bar color from left to mid
   for (let i = left; i < mid; i++) {
-    order.push([null, null, null, i]);
+    order.push([-1, null, null, i]);
   }
   // remove bar color
   order.push([null, -1, null, null]);

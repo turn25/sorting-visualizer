@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import "../Transition.css";
 
@@ -15,8 +15,10 @@ export default function Legend({
 
   const [{ legends }] = SortAlgos[currentSortAlgoIdx];
 
+  const [truncate, setTruncate] = useState(false);
+
   return (
-    <div className="px-10 max-w-[840px] h-[calc(100vh-60vh-100px-120px)] mx-auto flex flex-col gap-y-6">
+    <div className="px-5 md:px-10 max-w-[840px] min-h-[calc(100vh-60vh-100px-120px)] mx-auto flex flex-col gap-y-6">
       <form className="inline-flex gap-x-2 items-center justify-center transition ease-in">
         <label className="inline-flex items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
           <input
@@ -46,7 +48,7 @@ export default function Legend({
           }}
           classNames="fade"
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center text-center">
             {legends[3] && (
               <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
                 <span className="bg-amber-400 h-10 w-10 rounded-md" />
@@ -62,26 +64,38 @@ export default function Legend({
                 {legends[0]}
               </p>
             </div>
-            <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
+
+            <div
+              onClick={() => setTruncate((prevState) => !prevState)}
+              className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80"
+            >
               <span className="bg-rose-400 h-10 w-10 rounded-md" />
               <p className="font-semibold text-rose-600 cursor-default">
-                {legends[1]}
+                {truncate && legends[5] ? legends[5] : legends[1]}
               </p>
             </div>
+
+            {legends[4] && (
+              <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
+                <span className="bg-lime-400 h-10 w-10 rounded-md" />
+                <p className="font-semibold text-lime-600 cursor-default">
+                  {legends[4]}
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col items-center transition ease-in duration-200 hover:-translate-y-1 hover:opacity-80">
               <span
-                className={`bg-${
-                  legends[2] === "Sorted"
-                    ? sortedColor("teal", "green")
-                    : "green"
-                }-400 h-10 w-10 rounded-md transition-colors ease-in duration-500`}
+                className={`bg-${sortedColor(
+                  "teal",
+                  "green"
+                )}-400 h-10 w-10 rounded-md transition-colors ease-in duration-500`}
               />
               <p
-                className={`font-semibold text-${
-                  legends[2] === "Sorted"
-                    ? sortedColor("teal", "green")
-                    : "green"
-                }-500 cursor-default`}
+                className={`font-semibold text-${sortedColor(
+                  "teal",
+                  "green"
+                )}-500 cursor-default`}
               >
                 {legends[2]}
               </p>

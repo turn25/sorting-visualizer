@@ -6,6 +6,7 @@ const violet_400 = "#a78bfa";
 const teal_400 = "#2dd4bf";
 const rose_400 = "#fb7185";
 const amber_400 = "#fbbf24";
+const lime_400 = "#a3e635";
 
 export default function ArrayList({
   array,
@@ -28,8 +29,9 @@ export default function ArrayList({
 
         // if swap have index(idx) inside => change bar color that have the same idx
         if (swap && (index === swap[0] || index === swap[1])) bg = rose_400;
-
-        if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
+        if (sortedIndex && sortedIndex.includes(index) && compare[0] === -1)
+          bg = lime_400;
+        else if (sortedIndex && sortedIndex.includes(index)) bg = green_400;
 
         if (sortedArray && sortedArray.includes(index)) bg = teal_400;
 
