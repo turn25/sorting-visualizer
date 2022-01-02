@@ -149,6 +149,24 @@ const SortAlgos = [
       wikiLink: "https://en.wikipedia.org/wiki/Mergesort",
     },
   ],
+  [
+    {
+      id: 7,
+      name: "Heap Sort",
+      value: "HeapSort",
+      legends: ["Compare", "Swap", "Sorted", "", "Heap Built"],
+      worstCase: <span>O(n log n)</span>,
+      bestCase: <span>O(n log n)</span>,
+      averageCase: <span>O(n log n)</span>,
+      spaceComplexity: <span>O(1)</span>,
+      description: ` is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: 
+      like selection sort, heapsort divides its input into a sorted and an unsorted region, 
+      and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region. 
+      Unlike selection sort, heapsort does not waste time with a linear-time scan of the unsorted region; rather, 
+      heap sort maintains the unsorted region in a heap data structure to more quickly find the largest element in each step`,
+      wikiLink: "https://en.wikipedia.org/wiki/Heapsort",
+    },
+  ],
 ];
 
 export default SortAlgos;

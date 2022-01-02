@@ -19,6 +19,7 @@ import SelectionSort from "../sorting-algorithms/SelectionSort";
 import ShellSort from "../sorting-algorithms/ShellSort";
 import QuickSort from "../sorting-algorithms/QuickSort";
 import MergeSort from "../sorting-algorithms/MergeSort";
+import HeapSort from "../sorting-algorithms/HeapSort";
 
 //Utils
 import checkArray from "../utils/checkArray";
@@ -138,6 +139,9 @@ export default function SortingVisualizer() {
         break;
       case "MergeSort":
         orders = MergeSort(array, isAsc);
+        break;
+      case "HeapSort":
+        orders = HeapSort(array, isAsc);
         break;
 
       default:
