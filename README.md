@@ -1,6 +1,6 @@
 # Sorting Visualizer
 
-Try the demo on [vuquangtuan123.github.io/Sorting-Visualizer](https://vuquangtuan123.github.io/Sorting-Visualizer)
+Try the demo on [vuquangtuan123.github.io/sorting-visualizer](https://vuquangtuan123.github.io/sorting-visualizer)
 
 ## Demo
 
